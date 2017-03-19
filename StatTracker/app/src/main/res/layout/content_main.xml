@@ -427,6 +427,7 @@
                 <!-- left substitute icon -->
 
                 <ImageView
+                    android:id="@+id/left_substitute"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_below="@id/left_card_player_top_left"
@@ -1176,7 +1177,10 @@
                 <!-- bottom row of players -->
 
 
+
+                <!-- right substitute button -->
                 <ImageView
+                    android:id="@+id/right_substitute"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_below="@id/right_card_player_top_right"
@@ -1185,6 +1189,8 @@
                     android:layout_marginRight="32dp"
                     android:layout_alignParentEnd="true"
                     />
+
+                <!-- bottom left player -->
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/right_card_player_bot_left"

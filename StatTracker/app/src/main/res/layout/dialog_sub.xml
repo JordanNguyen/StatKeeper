@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- top row of players -->
+    
+    <android.support.v7.widget.CardView
+        android:id="@+id/sub_current_player1"
+        android:layout_width="130dp"
+        android:layout_height="180dp"
+        app:cardCornerRadius="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="7dp"
+        >
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:background="@drawable/player_pic"
+                android:id="@+id/sub_current_image1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sub_current_name1"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/sub_current_image1"
+                android:text="L. James"
+                android:layout_marginTop="12dp"
+                android:textSize="22sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                />
+            
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/sub_current_player2"
+        android:layout_width="130dp"
+        android:layout_height="180dp"
+        app:cardCornerRadius="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="7dp"
+        android:layout_toRightOf="@id/sub_current_player1"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:background="@drawable/player_pic"
+                android:id="@+id/sub_current_image2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sub_current_name2"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/sub_current_image2"
+                android:text="L. James"
+                android:layout_marginTop="12dp"
+                android:textSize="22sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/sub_current_player3"
+        android:layout_width="130dp"
+        android:layout_height="180dp"
+        app:cardCornerRadius="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="7dp"
+        android:layout_toRightOf="@id/sub_current_player2"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:background="@drawable/player_pic"
+                android:id="@+id/sub_current_image3"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sub_current_name3"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/sub_current_image3"
+                android:text="L. James"
+                android:layout_marginTop="12dp"
+                android:textSize="22sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+    
+    <!-- bottom row of players -->
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/sub_current_player4"
+        android:layout_width="130dp"
+        android:layout_height="180dp"
+        app:cardCornerRadius="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="80dp"
+        android:layout_below="@id/sub_current_player1"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:background="@drawable/player_pic"
+                android:id="@+id/sub_current_image4"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sub_current_name4"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/sub_current_image4"
+                android:text="L. James"
+                android:layout_marginTop="12dp"
+                android:textSize="22sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/sub_current_player5"
+        android:layout_width="130dp"
+        android:layout_height="180dp"
+        app:cardCornerRadius="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="7dp"
+        android:layout_below="@id/sub_current_player1"
+        android:layout_toRightOf="@id/sub_current_player4"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                android:background="@drawable/player_pic"
+                android:id="@+id/sub_current_image5"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sub_current_name5"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/sub_current_image5"
+                android:text="L. James"
+                android:layout_marginTop="12dp"
+                android:textSize="22sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+                />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+    
+    <TextView
+        android:layout_width=""
+        android:layout_height="" />
+
+
+</RelativeLayout>
