@@ -1,0 +1,1706 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="2"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:fitsSystemWindows="true"
+    tools:context="com.statkeeperapp.stattracker.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.4"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        >
+
+        <!-- left player bench card layout -->
+
+        <android.support.v7.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/grey"
+            app:cardCornerRadius="12dp"
+            android:layout_weight="4.3"
+            android:layout_marginRight="16dp"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- top row of players -->
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/left_card_player_top_left"
+                    android:layout_width="120dp"
+                    android:layout_height="165dp"
+                    app:cardCornerRadius="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="7dp"
+                    >
+
+                    <RelativeLayout
+                        android:id="@+id/left_card_player_top_left_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:background="@drawable/player_pic"
+                            android:id="@+id/left_image_player_top_left"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="12dp"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_name1"
+                            android:gravity="center"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@id/left_image_player_top_left"
+                            android:text="K. Bryant"
+                            android:layout_marginTop="4dp"
+                            android:textSize="16sp"
+                            android:fontFamily="sans-serif"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_pts_header"
+                            android:text="PTS"
+                            android:gravity="center"
+                            android:layout_below="@id/left_text_name1"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginLeft="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_reb_header"
+                            android:gravity="center"
+                            android:layout_below="@id/left_text_name1"
+                            android:text="REB"
+                            android:layout_marginTop="1dp"
+                            android:layout_centerHorizontal="true"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_ast_header"
+                            android:gravity="center"
+                            android:layout_below="@id/left_text_name1"
+                            android:text="AST"
+                            android:layout_marginTop="1dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_player1_pts"
+                            android:layout_below="@id/left_text_pts_header"
+                            android:text="81"
+                            android:textStyle="bold"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_player1_reb"
+                            android:layout_below="@id/left_text_pts_header"
+                            android:text="7"
+                            android:textStyle="bold"
+                            android:layout_centerHorizontal="true"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_player1_ast"
+                            android:layout_below="@id/left_text_ast_header"
+                            android:text="6"
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="14dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/left_card_player_top_center"
+                    android:layout_width="120dp"
+                    android:layout_height="167dp"
+                    app:cardCornerRadius="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_toRightOf="@id/left_card_player_top_left"
+                    >
+
+                    <RelativeLayout
+                        android:id="@+id/left_card_player_top_center_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:background="@drawable/player_pic"
+                            android:id="@+id/left_image_player_top_center"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="12dp"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_name2"
+                            android:gravity="center"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@id/left_image_player_top_center"
+                            android:text="L. James"
+                            android:layout_marginTop="4dp"
+                            android:textSize="16sp"
+                            android:fontFamily="sans-serif"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_pts_header2"
+                            android:text="PTS"
+                            android:gravity="center"
+                            android:layout_below="@id/left_text_name2"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginLeft="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_reb_header2"
+                            android:gravity="center"
+                            android:layout_below="@id/left_text_name2"
+                            android:text="REB"
+                            android:layout_marginTop="1dp"
+                            android:layout_centerHorizontal="true"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_ast_header2"
+                            android:gravity="center"
+                            android:layout_below="@id/left_text_name2"
+                            android:text="AST"
+                            android:layout_marginTop="1dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_player2_pts"
+                            android:layout_below="@id/left_text_pts_header2"
+                            android:text="28"
+                            android:textStyle="bold"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_player2_reb"
+                            android:layout_below="@id/left_text_pts_header2"
+                            android:text="7"
+                            android:textStyle="bold"
+                            android:layout_centerHorizontal="true"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_player2_ast"
+                            android:layout_below="@id/left_text_ast_header2"
+                            android:text="7"
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="14dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/left_card_player_top_right"
+                    android:layout_width="120dp"
+                    android:layout_height="167dp"
+                    app:cardCornerRadius="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_toRightOf="@id/left_card_player_top_center"
+                    >
+
+                    <RelativeLayout
+                        android:id="@+id/left_card_player_top_right_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:background="@drawable/player_pic"
+                            android:id="@+id/left_image_player_top_right"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="12dp"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_name3"
+                            android:gravity="center"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@id/left_image_player_top_right"
+                            android:text="S. Curry"
+                            android:layout_marginTop="4dp"
+                            android:textSize="16sp"
+                            android:fontFamily="sans-serif"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_pts_header3"
+                            android:text="PTS"
+                            android:gravity="center"
+                            android:layout_below="@id/left_text_name3"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginLeft="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_reb_header3"
+                            android:gravity="center"
+                            android:layout_below="@id/left_text_name3"
+                            android:text="REB"
+                            android:layout_marginTop="1dp"
+                            android:layout_centerHorizontal="true"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_ast_header3"
+                            android:gravity="center"
+                            android:layout_below="@id/left_text_name3"
+                            android:text="AST"
+                            android:layout_marginTop="1dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_player3_pts"
+                            android:layout_below="@id/left_text_pts_header3"
+                            android:text="32"
+                            android:textStyle="bold"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_player3_reb"
+                            android:layout_below="@id/left_text_pts_header3"
+                            android:text="4"
+                            android:textStyle="bold"
+                            android:layout_centerHorizontal="true"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_player3_ast"
+                            android:layout_below="@id/left_text_ast_header3"
+                            android:text="12"
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="14dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <!-- bottom row of players -->
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/left_card_player_bot_left"
+                    android:layout_width="120dp"
+                    android:layout_height="167dp"
+                    app:cardCornerRadius="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_below="@id/left_card_player_top_center"
+                    android:layout_toRightOf="@id/left_card_player_top_left"
+                    >
+
+                    <RelativeLayout
+                        android:id="@+id/left_card_player_bot_left_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:background="@drawable/player_pic"
+                            android:id="@+id/left_image_player_bot_left"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="12dp"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_name4"
+                            android:gravity="center"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@id/left_image_player_bot_left"
+                            android:text="D. Howard"
+                            android:layout_marginTop="4dp"
+                            android:textSize="16sp"
+                            android:fontFamily="sans-serif"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_pts_header4"
+                            android:text="PTS"
+                            android:gravity="center"
+                            android:layout_below="@id/left_text_name4"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginLeft="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_reb_header4"
+                            android:gravity="center"
+                            android:layout_below="@id/left_text_name4"
+                            android:text="REB"
+                            android:layout_marginTop="1dp"
+                            android:layout_centerHorizontal="true"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_ast_header4"
+                            android:gravity="center"
+                            android:layout_below="@id/left_text_name4"
+                            android:text="AST"
+                            android:layout_marginTop="1dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_player4_pts"
+                            android:layout_below="@id/left_text_pts_header4"
+                            android:text="12"
+                            android:textStyle="bold"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_player4_reb"
+                            android:layout_below="@id/left_text_pts_header4"
+                            android:text="15"
+                            android:textStyle="bold"
+                            android:layout_centerHorizontal="true"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_player4_ast"
+                            android:layout_below="@id/left_text_ast_header4"
+                            android:text="2"
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="14dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/left_card_player_bot_right"
+                    android:layout_width="120dp"
+                    android:layout_height="167dp"
+                    app:cardCornerRadius="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_below="@id/left_card_player_top_center"
+                    android:layout_toRightOf="@id/left_card_player_top_center"
+                    >
+
+                    <RelativeLayout
+                        android:id="@+id/left_card_player_bot_right_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:background="@drawable/player_pic"
+                            android:id="@+id/left_image_player_bot_right"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="12dp"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_name5"
+                            android:gravity="center"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@id/left_image_player_bot_right"
+                            android:text="Y. Ming"
+                            android:layout_marginTop="4dp"
+                            android:textSize="16sp"
+                            android:fontFamily="sans-serif"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_pts_header5"
+                            android:text="PTS"
+                            android:gravity="center"
+                            android:layout_below="@id/left_text_name5"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginLeft="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_reb_header5"
+                            android:gravity="center"
+                            android:layout_below="@id/left_text_name5"
+                            android:text="REB"
+                            android:layout_marginTop="1dp"
+                            android:layout_centerHorizontal="true"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_text_ast_header5"
+                            android:gravity="center"
+                            android:layout_below="@id/left_text_name5"
+                            android:text="AST"
+                            android:layout_marginTop="1dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_player5_pts"
+                            android:layout_below="@id/left_text_pts_header5"
+                            android:text="24"
+                            android:textStyle="bold"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_player5_reb"
+                            android:layout_below="@id/left_text_pts_header5"
+                            android:text="10"
+                            android:textStyle="bold"
+                            android:layout_centerHorizontal="true"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/left_player5_ast"
+                            android:layout_below="@id/left_text_ast_header5"
+                            android:text="8"
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="14dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <!-- Center layout with quarter time, score -->
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.4"
+            >
+
+            <TextView
+                android:id="@+id/text_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="8:00"
+                android:textSize="48sp"
+                android:layout_marginTop="40dp"
+                />
+
+            <TextView
+                android:id="@+id/text_quarter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="4th Quarter"
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@id/text_time"
+                />
+
+            <TextView
+                android:id="@+id/text_score_left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_quarter"
+                android:layout_alignParentStart="true"
+                android:text="74"
+                android:textSize="40sp"
+                android:layout_marginTop="40dp"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/text_score_dash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_quarter"
+                android:layout_toRightOf="@id/text_score_left"
+                android:text="-"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="8dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="66"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:layout_below="@id/text_quarter"
+                android:layout_toRightOf="@id/text_score_dash"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="40dp"
+
+                />
+
+        </RelativeLayout>
+
+        <!-- Right player bench card layout -->
+
+        <android.support.v7.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="12dp"
+            android:layout_weight="4.3"
+            android:layout_marginLeft="16dp"
+            app:cardBackgroundColor="@color/grey"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- top row of players -->
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/right_card_player_top_left"
+                    android:layout_width="120dp"
+                    android:layout_height="167dp"
+                    app:cardCornerRadius="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="7dp"
+                    >
+
+                    <RelativeLayout
+                        android:id="@+id/right_card_player_top_left_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:background="@drawable/player_pic"
+                            android:id="@+id/right_image_player_top_left"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="12dp"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_name1"
+                            android:gravity="center"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@id/right_image_player_top_left"
+                            android:text="T. Hollerer"
+                            android:layout_marginTop="4dp"
+                            android:textSize="16sp"
+                            android:fontFamily="sans-serif"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_pts_header1"
+                            android:text="PTS"
+                            android:gravity="center"
+                            android:layout_below="@id/right_text_name1"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginLeft="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_reb_header1"
+                            android:gravity="center"
+                            android:layout_below="@id/right_text_name1"
+                            android:text="REB"
+                            android:layout_marginTop="1dp"
+                            android:layout_centerHorizontal="true"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_ast_header1"
+                            android:gravity="center"
+                            android:layout_below="@id/right_text_name1"
+                            android:text="AST"
+                            android:layout_marginTop="1dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_player1_pts"
+                            android:layout_below="@id/right_text_pts_header1"
+                            android:text="99"
+                            android:textStyle="bold"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_player1_reb"
+                            android:layout_below="@id/right_text_pts_header1"
+                            android:text="20"
+                            android:textStyle="bold"
+                            android:layout_centerHorizontal="true"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_player1_ast"
+                            android:layout_below="@id/right_text_ast_header1"
+                            android:text="22"
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="14dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/right_card_player_top_center"
+                    android:layout_width="120dp"
+                    android:layout_height="167dp"
+                    app:cardCornerRadius="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_toRightOf="@id/right_card_player_top_left"
+                    >
+
+                    <RelativeLayout
+                        android:id="@+id/right_card_player_top_center_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:background="@drawable/player_pic"
+                            android:id="@+id/right_image_player_top_center"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="12dp"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_name2"
+                            android:gravity="center"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@id/right_image_player_top_center"
+                            android:text="S. Dong"
+                            android:layout_marginTop="4dp"
+                            android:textSize="16sp"
+                            android:fontFamily="sans-serif"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_pts_header2"
+                            android:text="PTS"
+                            android:gravity="center"
+                            android:layout_below="@id/right_text_name2"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginLeft="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_reb_header2"
+                            android:gravity="center"
+                            android:layout_below="@id/right_text_name2"
+                            android:text="REB"
+                            android:layout_marginTop="1dp"
+                            android:layout_centerHorizontal="true"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_ast_header2"
+                            android:gravity="center"
+                            android:layout_below="@id/right_text_name2"
+                            android:text="AST"
+                            android:layout_marginTop="1dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_player2_pts"
+                            android:layout_below="@id/right_text_pts_header2"
+                            android:text="8"
+                            android:textStyle="bold"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_player2_reb"
+                            android:layout_below="@id/right_text_pts_header2"
+                            android:text="3"
+                            android:textStyle="bold"
+                            android:layout_centerHorizontal="true"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_player2_ast"
+                            android:layout_below="@id/right_text_ast_header2"
+                            android:text="2"
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="14dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/right_card_player_top_right"
+                    android:layout_width="120dp"
+                    android:layout_height="167dp"
+                    app:cardCornerRadius="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_toRightOf="@id/right_card_player_top_center"
+                    >
+
+                    <RelativeLayout
+                        android:id="@+id/right_card_player_top_right_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:background="@drawable/player_pic"
+                            android:id="@+id/right_image_player_top_right"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="12dp"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_name3"
+                            android:gravity="center"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@id/right_image_player_top_right"
+                            android:text="H. Kung"
+                            android:layout_marginTop="4dp"
+                            android:textSize="16sp"
+                            android:fontFamily="sans-serif"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_pts_header3"
+                            android:text="PTS"
+                            android:gravity="center"
+                            android:layout_below="@id/right_text_name3"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginLeft="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_reb_header3"
+                            android:gravity="center"
+                            android:layout_below="@id/right_text_name3"
+                            android:text="REB"
+                            android:layout_marginTop="1dp"
+                            android:layout_centerHorizontal="true"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_ast_header3"
+                            android:gravity="center"
+                            android:layout_below="@id/right_text_name3"
+                            android:text="AST"
+                            android:layout_marginTop="1dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_player3_pts"
+                            android:layout_below="@id/right_text_pts_header3"
+                            android:text="6"
+                            android:textStyle="bold"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_player3_reb"
+                            android:layout_below="@id/right_text_pts_header3"
+                            android:text="4"
+                            android:textStyle="bold"
+                            android:layout_centerHorizontal="true"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_player3_ast"
+                            android:layout_below="@id/right_text_ast_header3"
+                            android:text="3"
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="14dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <!-- bottom row of players -->
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/right_card_player_bot_left"
+                    android:layout_width="120dp"
+                    android:layout_height="167dp"
+                    app:cardCornerRadius="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_below="@id/right_card_player_top_center"
+                    >
+
+
+                    <RelativeLayout
+                        android:id="@+id/right_card_player_bot_left_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:background="@drawable/player_pic"
+                            android:id="@+id/right_image_player_bot_left"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="12dp"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_name4"
+                            android:gravity="center"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@id/right_image_player_bot_left"
+                            android:text="M. Turk"
+                            android:layout_marginTop="4dp"
+                            android:textSize="16sp"
+                            android:fontFamily="sans-serif"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_pts_header4"
+                            android:text="PTS"
+                            android:gravity="center"
+                            android:layout_below="@id/right_text_name4"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginLeft="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_reb_header4"
+                            android:gravity="center"
+                            android:layout_below="@id/right_text_name4"
+                            android:text="REB"
+                            android:layout_marginTop="1dp"
+                            android:layout_centerHorizontal="true"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_ast_header4"
+                            android:gravity="center"
+                            android:layout_below="@id/right_text_name4"
+                            android:text="AST"
+                            android:layout_marginTop="1dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_player4_pts"
+                            android:layout_below="@id/right_text_pts_header4"
+                            android:text="14"
+                            android:textStyle="bold"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_player4_reb"
+                            android:layout_below="@id/right_text_pts_header4"
+                            android:text="4"
+                            android:textStyle="bold"
+                            android:layout_centerHorizontal="true"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_player4_ast"
+                            android:layout_below="@id/right_text_ast_header4"
+                            android:text="5"
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="14dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/right_card_player_bot_right"
+                    android:layout_width="120dp"
+                    android:layout_height="167dp"
+                    app:cardCornerRadius="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_below="@id/right_card_player_top_center"
+                    android:layout_toRightOf="@id/right_card_player_top_left"
+                    >
+
+                    <RelativeLayout
+                        android:id="@+id/right_card_player_bot_right_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:background="@drawable/player_pic"
+                            android:id="@+id/right_image_player_bot_right"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="12dp"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_name5"
+                            android:gravity="center"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@id/right_image_player_bot_right"
+                            android:text="P. Conrad"
+                            android:layout_marginTop="4dp"
+                            android:textSize="16sp"
+                            android:fontFamily="sans-serif"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_pts_header5"
+                            android:text="PTS"
+                            android:gravity="center"
+                            android:layout_below="@id/right_text_name5"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginLeft="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_reb_header5"
+                            android:gravity="center"
+                            android:layout_below="@id/right_text_name5"
+                            android:text="REB"
+                            android:layout_marginTop="1dp"
+                            android:layout_centerHorizontal="true"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_text_ast_header5"
+                            android:gravity="center"
+                            android:layout_below="@id/right_text_name5"
+                            android:text="AST"
+                            android:layout_marginTop="1dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="8dp"
+                            android:fontFamily="sans-serif-thin"
+                            android:textStyle="bold"
+                            android:textSize="12sp"
+
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_player5_pts"
+                            android:layout_below="@id/right_text_pts_header5"
+                            android:text="4"
+                            android:textStyle="bold"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_player5_reb"
+                            android:layout_below="@id/right_text_pts_header5"
+                            android:text="0"
+                            android:textStyle="bold"
+                            android:layout_centerHorizontal="true"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/right_player5_ast"
+                            android:layout_below="@id/right_text_ast_header5"
+                            android:text="11"
+                            android:textStyle="bold"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginRight="14dp"
+                            android:textSize="20sp"
+                            android:gravity="center"
+                            />
+
+
+                    </RelativeLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+
+    <!-- drag and drop stat fields -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        >
+
+        <LinearLayout
+            android:id="@+id/two_point_make"
+            android:layout_width="135dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            >
+
+            <TextView
+                android:id="@+id/two_point_make_text"
+                android:layout_width="135dp"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:text="2PT MAKE"
+                android:textSize="22sp"
+                android:padding="12dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_make_button"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/three_point_make"
+            android:layout_width="135dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/two_point_make"
+            >
+
+            <TextView
+                android:id="@+id/three_point_make_text"
+                android:layout_width="135dp"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:text="3PT MAKE"
+                android:textSize="22sp"
+                android:padding="12dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_make_button"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ft_make"
+            android:layout_width="135dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/three_point_make"
+            >
+
+            <TextView
+                android:id="@+id/ft_make_text"
+                android:layout_width="135dp"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:text="FT MAKE"
+                android:textSize="22sp"
+                android:padding="12dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_make_button"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/two_point_miss"
+            android:layout_width="135dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/ft_make"
+
+            >
+
+            <TextView
+                android:id="@+id/two_point_miss_text"
+                android:layout_width="135dp"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:text="2PT MISS"
+                android:textSize="22sp"
+                android:padding="12dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_miss_button"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/three_point_miss"
+            android:layout_width="135dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/two_point_miss"
+            >
+            <TextView
+                android:id="@+id/three_point_miss_text"
+                android:layout_width="135dp"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:text="3PT MISS"
+                android:textSize="22sp"
+                android:padding="12dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_miss_button"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ft_miss"
+            android:layout_width="135dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/three_point_miss"
+            >
+
+            <TextView
+                android:id="@+id/ft_miss_text"
+                android:layout_width="135dp"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:text="FT MISS"
+                android:textSize="22sp"
+                android:padding="12dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_miss_button"
+                />
+
+        </LinearLayout>
+
+        <!--second row -->
+
+        <LinearLayout
+            android:layout_below="@id/two_point_make"
+            android:id="@+id/rebound"
+            android:layout_width="135dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            >
+
+            <TextView
+                android:id="@+id/rebound_text"
+                android:layout_width="135dp"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:text="REBOUND"
+                android:textSize="22sp"
+                android:padding="12dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_button"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/assist"
+            android:layout_width="135dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/two_point_make"
+            android:layout_below="@id/two_point_miss"
+            >
+
+            <TextView
+                android:id="@+id/assist_text"
+                android:layout_width="135dp"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:text="ASSIST"
+                android:textSize="22sp"
+                android:padding="12dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_button"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/steal"
+            android:layout_width="135dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/two_point_miss"
+            android:layout_below="@id/three_point_make"
+            >
+
+            <TextView
+                android:id="@+id/steal_text"
+                android:layout_width="135dp"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:text="STEAL"
+                android:textSize="22sp"
+                android:padding="12dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_button"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/block"
+            android:layout_width="135dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/three_point_make"
+            android:layout_below="@id/three_point_miss"
+            >
+            <TextView
+                android:id="@+id/block_text"
+                android:layout_width="135dp"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:text="BLOCK"
+                android:textSize="22sp"
+                android:padding="12dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_button"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/foul"
+            android:layout_width="135dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/three_point_miss"
+            android:layout_below="@id/ft_make"
+            >
+
+            <TextView
+                android:id="@+id/foul_text"
+                android:layout_width="135dp"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:text="FOUL"
+                android:textSize="22sp"
+                android:padding="12dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_button"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/turnover"
+            android:layout_width="135dp"
+            android:layout_height="55dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@id/ft_make"
+            android:layout_below="@id/ft_miss"
+            >
+
+            <TextView
+                android:id="@+id/turnover_text"
+                android:layout_width="135dp"
+                android:layout_height="55dp"
+                android:gravity="center"
+                android:text="TO"
+                android:textSize="22sp"
+                android:padding="12dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_button"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
