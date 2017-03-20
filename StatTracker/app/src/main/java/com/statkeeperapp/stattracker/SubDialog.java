@@ -78,59 +78,67 @@ public class SubDialog extends android.app.DialogFragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.dialog_sub, container, false);
 
+        title = (TextView)v.findViewById(R.id.sub_title_text);
+
+        image_player1 = (ImageView)v.findViewById(R.id.sub_current_image1);
+        image_player2 = (ImageView)v.findViewById(R.id.sub_current_image2);
+        image_player3 = (ImageView)v.findViewById(R.id.sub_current_image3);
+        image_player4 = (ImageView)v.findViewById(R.id.sub_current_image4);
+        image_player5 = (ImageView)v.findViewById(R.id.sub_current_image5);
+
+        text_player1 = (TextView)v.findViewById(R.id.sub_current_name1);
+        text_player2 = (TextView)v.findViewById(R.id.sub_current_name2);
+        text_player3 = (TextView)v.findViewById(R.id.sub_current_name3);
+        text_player4 = (TextView)v.findViewById(R.id.sub_current_name4);
+        text_player5 = (TextView)v.findViewById(R.id.sub_current_name5);
+
+        button_next = (TextView)v.findViewById(R.id.sub_button_confirm);
+        button_cancel = (TextView)v.findViewById(R.id.sub_button_cancel);
+
+        player1_card = (RelativeLayout) v.findViewById(R.id.sub_player1_layout);
+        player2_card = (RelativeLayout) v.findViewById(R.id.sub_player2_layout);
+        player3_card = (RelativeLayout) v.findViewById(R.id.sub_player3_layout);
+        player4_card = (RelativeLayout) v.findViewById(R.id.sub_player4_layout);
+        player5_card = (RelativeLayout) v.findViewById(R.id.sub_player5_layout);
+
+        currentLineup();
+        return v;
+    }
+
+    public void currentLineup() {
         final Drawable highlightShape = getResources().getDrawable(R.drawable.substitute_highlight);
         final Drawable normalShape = getResources().getDrawable(R.drawable.shape_normal);
         final Drawable grey_button = getResources().getDrawable(R.drawable.sub_cancel_button);
         final Drawable green_button = getResources().getDrawable(R.drawable.rounded_make_button);
 
-
+        subout_counter = 0;
+        subin_counter = 0;
         isHighlighted1 = false;
         isHighlighted2 = false;
         isHighlighted3 = false;
         isHighlighted4 = false;
         isHighlighted5 = false;
+        player1_card.setBackgroundDrawable(normalShape);
+        player2_card.setBackgroundDrawable(normalShape);
+        player3_card.setBackgroundDrawable(normalShape);
+        player4_card.setBackgroundDrawable(normalShape);
+        player5_card.setBackgroundDrawable(normalShape);
+        
+        title.setText("Select player(s) to sub out");
 
-        subout_counter = 0;
-        subin_counter = 0;
-
-       title = (TextView)v.findViewById(R.id.sub_title_text);
-
-
-
-
-        image_player1 = (ImageView)v.findViewById(R.id.sub_current_image1);
-        image_player2 = (ImageView)v.findViewById(R.id.sub_current_image2);
+        Picasso.with(getActivity().getApplicationContext()).load(player_list.get(0).getImage_url()).transform(new CircleTransform()).into(image_player1);
         Picasso.with(getActivity().getApplicationContext()).load(player_list.get(1).getImage_url()).transform(new CircleTransform()).into(image_player2);
-        image_player3 = (ImageView)v.findViewById(R.id.sub_current_image3);
         Picasso.with(getActivity().getApplicationContext()).load(player_list.get(2).getImage_url()).transform(new CircleTransform()).into(image_player3);
-        image_player4 = (ImageView)v.findViewById(R.id.sub_current_image4);
         Picasso.with(getActivity().getApplicationContext()).load(player_list.get(3).getImage_url()).transform(new CircleTransform()).into(image_player4);
-        image_player5 = (ImageView)v.findViewById(R.id.sub_current_image5);
         Picasso.with(getActivity().getApplicationContext()).load(player_list.get(4).getImage_url()).transform(new CircleTransform()).into(image_player5);
-
-        text_player1 = (TextView)v.findViewById(R.id.sub_current_name1);
         text_player1.setText(player_list.get(0).getName());
-        text_player2 = (TextView)v.findViewById(R.id.sub_current_name2);
         text_player2.setText(player_list.get(1).getName());
-        text_player3 = (TextView)v.findViewById(R.id.sub_current_name3);
         text_player3.setText(player_list.get(2).getName());
-        text_player4 = (TextView)v.findViewById(R.id.sub_current_name4);
         text_player4.setText(player_list.get(3).getName());
-        text_player5 = (TextView)v.findViewById(R.id.sub_current_name5);
         text_player5.setText(player_list.get(4).getName());
 
-
-        button_next = (TextView)v.findViewById(R.id.sub_button_confirm);
-        button_next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("DIALOG", "sub out number: " +subout_counter);
-                showBench();
-            }
-        });
-        button_next.setClickable(false);
-
-        button_cancel = (TextView)v.findViewById(R.id.sub_button_cancel);
+        button_cancel.setText("CANCEL");
+        button_cancel.setBackgroundDrawable(grey_button);
         button_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,11 +146,16 @@ public class SubDialog extends android.app.DialogFragment {
             }
         });
 
-        player1_card = (RelativeLayout) v.findViewById(R.id.sub_player1_layout);
-        player2_card = (RelativeLayout) v.findViewById(R.id.sub_player2_layout);
-        player3_card = (RelativeLayout) v.findViewById(R.id.sub_player3_layout);
-        player4_card = (RelativeLayout) v.findViewById(R.id.sub_player4_layout);
-        player5_card = (RelativeLayout) v.findViewById(R.id.sub_player5_layout);
+        button_next.setText("NEXT");
+        button_next.setBackgroundDrawable(grey_button);
+        button_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("DIALOG", "sub out number: " + subout_counter);
+                showBench();
+            }
+        });
+        button_next.setClickable(false);
 
         player1_card.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,8 +193,7 @@ public class SubDialog extends android.app.DialogFragment {
                     isHighlighted2 = false;
                     Log.d("DIALOG", "de-hightlighting2");
 
-                }
-                else {
+                } else {
                     player2_card.setBackground(highlightShape);
                     subout_counter += 1;
                     isHighlighted2 = true;
@@ -189,8 +201,7 @@ public class SubDialog extends android.app.DialogFragment {
                 if (subout_counter == 0) {
                     button_next.setClickable(false);
                     button_next.setBackgroundDrawable(grey_button);
-                }
-                else {
+                } else {
                     button_next.setClickable(true);
                     button_next.setBackgroundDrawable(green_button);
                 }
@@ -206,8 +217,7 @@ public class SubDialog extends android.app.DialogFragment {
                     isHighlighted3 = false;
                     Log.d("DIALOG", "de-hightlighting2");
 
-                }
-                else {
+                } else {
                     player3_card.setBackground(highlightShape);
                     subout_counter += 1;
                     isHighlighted3 = true;
@@ -215,8 +225,7 @@ public class SubDialog extends android.app.DialogFragment {
                 if (subout_counter == 0) {
                     button_next.setClickable(false);
                     button_next.setBackgroundDrawable(grey_button);
-                }
-                else {
+                } else {
                     button_next.setClickable(true);
                     button_next.setBackgroundDrawable(green_button);
                 }
@@ -258,8 +267,7 @@ public class SubDialog extends android.app.DialogFragment {
                     isHighlighted5 = false;
                     Log.d("DIALOG", "de-");
 
-                }
-                else {
+                } else {
                     player5_card.setBackground(highlightShape);
                     subout_counter += 1;
                     isHighlighted5 = true;
@@ -267,8 +275,7 @@ public class SubDialog extends android.app.DialogFragment {
                 if (subout_counter == 0) {
                     button_next.setClickable(false);
                     button_next.setBackgroundDrawable(grey_button);
-                }
-                else {
+                } else {
                     button_next.setClickable(true);
                     button_next.setBackgroundDrawable(green_button);
                 }
@@ -276,27 +283,7 @@ public class SubDialog extends android.app.DialogFragment {
         });
 
 
-        return v;
-    }
 
-    public void currentLineup() {
-        final Drawable grey_button = getResources().getDrawable(R.drawable.sub_cancel_button);
-
-        Picasso.with(getActivity().getApplicationContext()).load(player_list.get(0).getImage_url()).transform(new CircleTransform()).into(image_player1);
-        Picasso.with(getActivity().getApplicationContext()).load(player_list.get(1).getImage_url()).transform(new CircleTransform()).into(image_player2);
-        Picasso.with(getActivity().getApplicationContext()).load(player_list.get(2).getImage_url()).transform(new CircleTransform()).into(image_player3);
-        Picasso.with(getActivity().getApplicationContext()).load(player_list.get(3).getImage_url()).transform(new CircleTransform()).into(image_player4);
-        Picasso.with(getActivity().getApplicationContext()).load(player_list.get(4).getImage_url()).transform(new CircleTransform()).into(image_player5);
-        text_player1.setText(player_list.get(0).getName());
-        text_player2.setText(player_list.get(1).getName());
-        text_player3.setText(player_list.get(2).getName());
-        text_player4.setText(player_list.get(3).getName());
-        text_player5.setText(player_list.get(4).getName());
-
-        button_cancel.setText("CANCEL");
-        button_cancel.setBackgroundDrawable(grey_button);
-        button_next.setText("NEXT");
-        button_next.setBackgroundDrawable(grey_button);
     }
 
 
@@ -349,6 +336,7 @@ public class SubDialog extends android.app.DialogFragment {
         button_cancel.setBackgroundDrawable(back_button);
         button_next.setText("ACCEPT");
         button_next.setBackgroundDrawable(grey_button);
+        button_next.setClickable(false);
 
         // now the accept button
         button_next.setOnClickListener(new View.OnClickListener() {
@@ -407,7 +395,7 @@ public class SubDialog extends android.app.DialogFragment {
         button_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                currentLineup();
             }
         });
 

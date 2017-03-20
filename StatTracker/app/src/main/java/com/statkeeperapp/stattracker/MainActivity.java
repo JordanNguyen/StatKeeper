@@ -123,7 +123,6 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
         right_player_name3 = (TextView)findViewById(R.id.right_text_name3);
         right_player_name4 = (TextView)findViewById(R.id.right_text_name4);
         right_player_name5 = (TextView)findViewById(R.id.right_text_name5);
-
         right_player_name1.setText(away_player_list.get(0).getName());
         right_player_name2.setText(away_player_list.get(1).getName());
         right_player_name3.setText(away_player_list.get(2).getName());
@@ -1021,8 +1020,8 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 // update game score
                                 score.setText("" + home_score + " - " + away_score);
 
-                                away_player_list.get(5).setFg_made(away_player_list.get(5).getFg_made() + 1);
-                                away_player_list.get(5).setPoints(away_player_list.get(5).getPoints() + 2);
+                                away_player_list.get(0).setFg_made(away_player_list.get(0).getFg_made() + 1);
+                                away_player_list.get(0).setPoints(away_player_list.get(0).getPoints() + 2);
 
                             }
 
@@ -1037,9 +1036,9 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_score += 3;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                away_player_list.get(5).setFg_made(away_player_list.get(5).getFg_made() + 1);
-                                away_player_list.get(5).setThree_made(away_player_list.get(5).getThree_made() + 1);
-                                away_player_list.get(5).setPoints(away_player_list.get(5).getPoints() + 3);
+                                away_player_list.get(0).setFg_made(away_player_list.get(0).getFg_made() + 1);
+                                away_player_list.get(0).setThree_made(away_player_list.get(0).getThree_made() + 1);
+                                away_player_list.get(0).setPoints(away_player_list.get(0).getPoints() + 3);
                             }
 
                             // update home player 5's ft made and points
@@ -1053,24 +1052,24 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_score += 1;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                away_player_list.get(5).setFt_made(away_player_list.get(5).getFt_made() + 1);
-                                away_player_list.get(5).setPoints(away_player_list.get(5).getPoints() + 1);
+                                away_player_list.get(0).setFt_made(away_player_list.get(0).getFt_made() + 1);
+                                away_player_list.get(0).setPoints(away_player_list.get(0).getPoints() + 1);
                             }
 
                             // update home player 5's fg misses
                             else if(stat_index == 3) {
-                                away_player_list.get(5).setFg_miss(away_player_list.get(5).getFg_miss() + 1);
+                                away_player_list.get(0).setFg_miss(away_player_list.get(0).getFg_miss() + 1);
                             }
 
                             // update home player 5's three point misses
                             else if (stat_index == 4) {
-                                away_player_list.get(5).setFg_miss(away_player_list.get(5).getFg_miss() + 1);
-                                away_player_list.get(5).setThree_miss(away_player_list.get(5).getThree_miss() + 1);
+                                away_player_list.get(0).setFg_miss(away_player_list.get(0).getFg_miss() + 1);
+                                away_player_list.get(0).setThree_miss(away_player_list.get(0).getThree_miss() + 1);
                             }
 
                             // update home player 5's missed fts
                             else if (stat_index == 5) {
-                                away_player_list.get(5).setFt_miss(away_player_list.get(5).getFt_miss() + 1);
+                                away_player_list.get(0).setFt_miss(away_player_list.get(0).getFt_miss() + 1);
                             }
 
                             // update home player 5's rebounds
@@ -1080,7 +1079,7 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 int new_reb = reb + 1;
                                 player5reb.setText("" + new_reb);
 
-                                away_player_list.get(5).setRebounds(away_player_list.get(5).getRebounds() + 1);
+                                away_player_list.get(0).setRebounds(away_player_list.get(0).getRebounds() + 1);
                             }
 
                             // update home player 5's assists
@@ -1090,26 +1089,26 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 int new_ast = ast + 1;
                                 player5ast.setText("" + new_ast);
 
-                                away_player_list.get(5).setAssists(away_player_list.get(5).getAssists() + 1);
+                                away_player_list.get(0).setAssists(away_player_list.get(0).getAssists() + 1);
                             }
 
                             // update home player 5's steals
                             else if (stat_index == 8) {
-                                away_player_list.get(5).setSteals(away_player_list.get(5).getSteals() + 1);
+                                away_player_list.get(0).setSteals(away_player_list.get(0).getSteals() + 1);
                             }
 
                             // update home player 5's blocks
                             else if (stat_index == 9) {
-                                away_player_list.get(5).setBlocks(away_player_list.get(5).getBlocks() + 1);
+                                away_player_list.get(0).setBlocks(away_player_list.get(0).getBlocks() + 1);
                             }
                             // update home player 5's fouls
                             else if (stat_index == 10) {
-                                away_player_list.get(5).setFouls(away_player_list.get(5).getFouls() + 1);
+                                away_player_list.get(0).setFouls(away_player_list.get(0).getFouls() + 1);
                             }
 
                             // update home player 5's turnovers
                             else if (stat_index == 11) {
-                                away_player_list.get(5).setTurnovers(away_player_list.get(5).getTurnovers() + 1);
+                                away_player_list.get(0).setTurnovers(away_player_list.get(0).getTurnovers() + 1);
                             }
 
                             break;
@@ -1128,8 +1127,8 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 // update game score
                                 score.setText("" + home_score + " - " + away_score);
 
-                                away_player_list.get(6).setFg_made(away_player_list.get(6).getFg_made() + 1);
-                                away_player_list.get(6).setPoints(away_player_list.get(6).getPoints() + 2);
+                                away_player_list.get(1).setFg_made(away_player_list.get(1).getFg_made() + 1);
+                                away_player_list.get(1).setPoints(away_player_list.get(1).getPoints() + 2);
 
                             }
 
@@ -1144,9 +1143,9 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_score += 3;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                away_player_list.get(6).setFg_made(away_player_list.get(6).getFg_made() + 1);
-                                away_player_list.get(6).setThree_made(away_player_list.get(6).getThree_made() + 1);
-                                away_player_list.get(6).setPoints(away_player_list.get(6).getPoints() + 3);
+                                away_player_list.get(1).setFg_made(away_player_list.get(1).getFg_made() + 1);
+                                away_player_list.get(1).setThree_made(away_player_list.get(1).getThree_made() + 1);
+                                away_player_list.get(1).setPoints(away_player_list.get(1).getPoints() + 3);
                             }
 
                             // update home player 6's ft made and points
@@ -1160,24 +1159,24 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_score += 1;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                away_player_list.get(6).setFt_made(away_player_list.get(6).getFt_made() + 1);
-                                away_player_list.get(6).setPoints(away_player_list.get(6).getPoints() + 1);
+                                away_player_list.get(1).setFt_made(away_player_list.get(1).getFt_made() + 1);
+                                away_player_list.get(1).setPoints(away_player_list.get(1).getPoints() + 1);
                             }
 
                             // update home player 6's fg misses
                             else if(stat_index == 3) {
-                                away_player_list.get(6).setFg_miss(away_player_list.get(6).getFg_miss() + 1);
+                                away_player_list.get(1).setFg_miss(away_player_list.get(1).getFg_miss() + 1);
                             }
 
                             // update home player 6's three point misses
                             else if (stat_index == 4) {
-                                away_player_list.get(6).setFg_miss(away_player_list.get(6).getFg_miss() + 1);
-                                away_player_list.get(6).setThree_miss(away_player_list.get(6).getThree_miss() + 1);
+                                away_player_list.get(1).setFg_miss(away_player_list.get(1).getFg_miss() + 1);
+                                away_player_list.get(1).setThree_miss(away_player_list.get(1).getThree_miss() + 1);
                             }
 
                             // update home player 6's missed fts
                             else if (stat_index == 5) {
-                                away_player_list.get(6).setFt_miss(away_player_list.get(6).getFt_miss() + 1);
+                                away_player_list.get(1).setFt_miss(away_player_list.get(1).getFt_miss() + 1);
                             }
 
                             // update home player 6's rebounds
@@ -1187,7 +1186,7 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 int new_reb = reb + 1;
                                 player6reb.setText("" + new_reb);
 
-                                away_player_list.get(6).setRebounds(away_player_list.get(6).getRebounds() + 1);
+                                away_player_list.get(1).setRebounds(away_player_list.get(1).getRebounds() + 1);
                             }
 
                             // update home player 6's assists
@@ -1197,26 +1196,26 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 int new_ast = ast + 1;
                                 player6ast.setText("" + new_ast);
 
-                                away_player_list.get(6).setAssists(away_player_list.get(6).getAssists() + 1);
+                                away_player_list.get(1).setAssists(away_player_list.get(1).getAssists() + 1);
                             }
 
                             // update home player 6's steals
                             else if (stat_index == 8) {
-                                away_player_list.get(6).setSteals(away_player_list.get(6).getSteals() + 1);
+                                away_player_list.get(1).setSteals(away_player_list.get(1).getSteals() + 1);
                             }
 
                             // update home player 6's blocks
                             else if (stat_index == 9) {
-                                away_player_list.get(6).setBlocks(away_player_list.get(6).getBlocks() + 1);
+                                away_player_list.get(1).setBlocks(away_player_list.get(1).getBlocks() + 1);
                             }
                             // update home player 6's fouls
                             else if (stat_index == 10) {
-                                away_player_list.get(6).setFouls(away_player_list.get(6).getFouls() + 1);
+                                away_player_list.get(1).setFouls(away_player_list.get(1).getFouls() + 1);
                             }
 
                             // update home player 6's turnovers
                             else if (stat_index == 11) {
-                                away_player_list.get(6).setTurnovers(away_player_list.get(6).getTurnovers() + 1);
+                                away_player_list.get(1).setTurnovers(away_player_list.get(1).getTurnovers() + 1);
                             }
 
                             break;
@@ -1235,8 +1234,8 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 // update game score
                                 score.setText("" + home_score + " - " + away_score);
 
-                                away_player_list.get(7).setFg_made(away_player_list.get(7).getFg_made() + 1);
-                                away_player_list.get(7).setPoints(away_player_list.get(7).getPoints() + 2);
+                                away_player_list.get(2).setFg_made(away_player_list.get(2).getFg_made() + 1);
+                                away_player_list.get(2).setPoints(away_player_list.get(2).getPoints() + 2);
 
                             }
 
@@ -1251,9 +1250,9 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_score += 3;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                away_player_list.get(7).setFg_made(away_player_list.get(7).getFg_made() + 1);
-                                away_player_list.get(7).setThree_made(away_player_list.get(7).getThree_made() + 1);
-                                away_player_list.get(7).setPoints(away_player_list.get(7).getPoints() + 3);
+                                away_player_list.get(2).setFg_made(away_player_list.get(2).getFg_made() + 1);
+                                away_player_list.get(2).setThree_made(away_player_list.get(2).getThree_made() + 1);
+                                away_player_list.get(2).setPoints(away_player_list.get(2).getPoints() + 3);
                             }
 
                             // update home player 7's ft made and points
@@ -1267,24 +1266,24 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_score += 1;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                away_player_list.get(7).setFt_made(away_player_list.get(7).getFt_made() + 1);
-                                away_player_list.get(7).setPoints(away_player_list.get(7).getPoints() + 1);
+                                away_player_list.get(2).setFt_made(away_player_list.get(2).getFt_made() + 1);
+                                away_player_list.get(2).setPoints(away_player_list.get(2).getPoints() + 1);
                             }
 
                             // update home player 7's fg misses
                             else if(stat_index == 3) {
-                                away_player_list.get(7).setFg_miss(away_player_list.get(7).getFg_miss() + 1);
+                                away_player_list.get(2).setFg_miss(away_player_list.get(2).getFg_miss() + 1);
                             }
 
                             // update home player 7's three point misses
                             else if (stat_index == 4) {
-                                away_player_list.get(7).setThree_miss(away_player_list.get(7).getThree_miss() + 1);
-                                away_player_list.get(7).setFg_miss(away_player_list.get(7).getFg_miss() + 1);
+                                away_player_list.get(2).setThree_miss(away_player_list.get(2).getThree_miss() + 1);
+                                away_player_list.get(2).setFg_miss(away_player_list.get(2).getFg_miss() + 1);
                             }
 
                             // update home player 7's missed fts
                             else if (stat_index == 5) {
-                                away_player_list.get(7).setFt_miss(away_player_list.get(7).getFt_miss() + 1);
+                                away_player_list.get(2).setFt_miss(away_player_list.get(2).getFt_miss() + 1);
                             }
 
                             // update home player 7's rebounds
@@ -1294,7 +1293,7 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 int new_reb = reb + 1;
                                 player7reb.setText("" + new_reb);
 
-                                away_player_list.get(7).setRebounds(away_player_list.get(7).getRebounds() + 1);
+                                away_player_list.get(2).setRebounds(away_player_list.get(2).getRebounds() + 1);
                             }
 
                             // update home player 7's assists
@@ -1304,26 +1303,26 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 int new_ast = ast + 1;
                                 player7ast.setText("" + new_ast);
 
-                                away_player_list.get(7).setAssists(away_player_list.get(7).getAssists() + 1);
+                                away_player_list.get(2).setAssists(away_player_list.get(2).getAssists() + 1);
                             }
 
                             // update home player 7's steals
                             else if (stat_index == 8) {
-                                away_player_list.get(7).setSteals(away_player_list.get(7).getSteals() + 1);
+                                away_player_list.get(2).setSteals(away_player_list.get(2).getSteals() + 1);
                             }
 
                             // update home player 7's blocks
                             else if (stat_index == 9) {
-                                away_player_list.get(7).setBlocks(away_player_list.get(7).getBlocks() + 1);
+                                away_player_list.get(2).setBlocks(away_player_list.get(2).getBlocks() + 1);
                             }
                             // update home player 7's fouls
                             else if (stat_index == 10) {
-                                away_player_list.get(7).setFouls(away_player_list.get(7).getFouls() + 1);
+                                away_player_list.get(2).setFouls(away_player_list.get(2).getFouls() + 1);
                             }
 
                             // update home player 7's turnovers
                             else if (stat_index == 11) {
-                                away_player_list.get(7).setTurnovers(away_player_list.get(7).getTurnovers() + 1);
+                                away_player_list.get(2).setTurnovers(away_player_list.get(2).getTurnovers() + 1);
                             }
 
                             break;
@@ -1342,8 +1341,8 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 // update game score
                                 score.setText("" + home_score + " - " + away_score);
 
-                                away_player_list.get(8).setFg_made(away_player_list.get(8).getFg_made() + 1);
-                                away_player_list.get(8).setPoints(away_player_list.get(8).getPoints() + 2);
+                                away_player_list.get(3).setFg_made(away_player_list.get(3).getFg_made() + 1);
+                                away_player_list.get(3).setPoints(away_player_list.get(3).getPoints() + 2);
 
                             }
 
@@ -1358,9 +1357,9 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_score += 3;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                away_player_list.get(8).setThree_made(away_player_list.get(8).getThree_made() + 1);
-                                away_player_list.get(8).setPoints(away_player_list.get(8).getPoints() + 3);
-                                away_player_list.get(8).setFg_made(away_player_list.get(8).getFg_made() + 1);
+                                away_player_list.get(3).setThree_made(away_player_list.get(3).getThree_made() + 1);
+                                away_player_list.get(3).setPoints(away_player_list.get(3).getPoints() + 3);
+                                away_player_list.get(3).setFg_made(away_player_list.get(3).getFg_made() + 1);
                             }
 
                             // update home player 8's ft made and points
@@ -1374,24 +1373,24 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_score += 1;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                away_player_list.get(8).setFt_made(away_player_list.get(8).getFt_made() + 1);
-                                away_player_list.get(8).setPoints(away_player_list.get(8).getPoints() + 1);
+                                away_player_list.get(3).setFt_made(away_player_list.get(3).getFt_made() + 1);
+                                away_player_list.get(3).setPoints(away_player_list.get(3).getPoints() + 1);
                             }
 
                             // update home player 8's fg misses
                             else if(stat_index == 3) {
-                                away_player_list.get(8).setFg_miss(away_player_list.get(8).getFg_miss() + 1);
+                                away_player_list.get(3).setFg_miss(away_player_list.get(3).getFg_miss() + 1);
                             }
 
                             // update home player 8's three point misses
                             else if (stat_index == 4) {
-                                away_player_list.get(8).setFg_miss(away_player_list.get(8).getFg_miss() + 1);
-                                away_player_list.get(8).setThree_miss(away_player_list.get(8).getThree_miss() + 1);
+                                away_player_list.get(3).setFg_miss(away_player_list.get(3).getFg_miss() + 1);
+                                away_player_list.get(3).setThree_miss(away_player_list.get(3).getThree_miss() + 1);
                             }
 
                             // update home player 8's missed fts
                             else if (stat_index == 5) {
-                                away_player_list.get(8).setFt_miss(away_player_list.get(8).getFt_miss() + 1);
+                                away_player_list.get(3).setFt_miss(away_player_list.get(3).getFt_miss() + 1);
                             }
 
                             // update home player 8's rebounds
@@ -1401,7 +1400,7 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 int new_reb = reb + 1;
                                 player8reb.setText("" + new_reb);
 
-                                away_player_list.get(8).setRebounds(away_player_list.get(8).getRebounds() + 1);
+                                away_player_list.get(3).setRebounds(away_player_list.get(3).getRebounds() + 1);
                             }
 
                             // update home player 8's assists
@@ -1411,26 +1410,26 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 int new_ast = ast + 1;
                                 player8ast.setText("" + new_ast);
 
-                                away_player_list.get(8).setAssists(away_player_list.get(8).getAssists() + 1);
+                                away_player_list.get(3).setAssists(away_player_list.get(3).getAssists() + 1);
                             }
 
                             // update home player 8's steals
                             else if (stat_index == 8) {
-                                away_player_list.get(8).setSteals(away_player_list.get(8).getSteals() + 1);
+                                away_player_list.get(3).setSteals(away_player_list.get(3).getSteals() + 1);
                             }
 
                             // update home player 8's blocks
                             else if (stat_index == 9) {
-                                away_player_list.get(8).setBlocks(away_player_list.get(8).getBlocks() + 1);
+                                away_player_list.get(3).setBlocks(away_player_list.get(3).getBlocks() + 1);
                             }
                             // update home player 8's fouls
                             else if (stat_index == 10) {
-                                away_player_list.get(8).setFouls(away_player_list.get(8).getFouls() + 1);
+                                away_player_list.get(3).setFouls(away_player_list.get(3).getFouls() + 1);
                             }
 
                             // update home player 8's turnovers
                             else if (stat_index == 11) {
-                                away_player_list.get(8).setTurnovers(away_player_list.get(8).getTurnovers() + 1);
+                                away_player_list.get(3).setTurnovers(away_player_list.get(3).getTurnovers() + 1);
                             }
 
                             break;
@@ -1450,8 +1449,8 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 // update game score
                                 score.setText("" + home_score + " - " + away_score);
 
-                                away_player_list.get(9).setFg_made(away_player_list.get(9).getFg_made() + 1);
-                                away_player_list.get(9).setPoints(away_player_list.get(9).getPoints() + 2);
+                                away_player_list.get(4).setFg_made(away_player_list.get(4).getFg_made() + 1);
+                                away_player_list.get(4).setPoints(away_player_list.get(4).getPoints() + 2);
 
                             }
 
@@ -1466,9 +1465,9 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_score += 3;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                away_player_list.get(9).setThree_made(away_player_list.get(9).getThree_made() + 1);
-                                away_player_list.get(9).setPoints(away_player_list.get(9).getPoints() + 3);
-                                away_player_list.get(9).setFg_made(away_player_list.get(9).getFg_made() + 1);
+                                away_player_list.get(4).setThree_made(away_player_list.get(4).getThree_made() + 1);
+                                away_player_list.get(4).setPoints(away_player_list.get(4).getPoints() + 3);
+                                away_player_list.get(4).setFg_made(away_player_list.get(4).getFg_made() + 1);
                             }
 
                             // update home player 9's ft made and points
@@ -1482,24 +1481,24 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_score += 1;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                away_player_list.get(9).setFt_made(away_player_list.get(9).getFt_made() + 1);
-                                away_player_list.get(9).setPoints(away_player_list.get(9).getPoints() + 1);
+                                away_player_list.get(4).setFt_made(away_player_list.get(4).getFt_made() + 1);
+                                away_player_list.get(4).setPoints(away_player_list.get(4).getPoints() + 1);
                             }
 
                             // update home player 9's fg misses
                             else if(stat_index == 3) {
-                                away_player_list.get(9).setFg_miss(away_player_list.get(9).getFg_miss() + 1);
+                                away_player_list.get(4).setFg_miss(away_player_list.get(4).getFg_miss() + 1);
                             }
 
                             // update home player 9's three point misses
                             else if (stat_index == 4) {
-                                away_player_list.get(9).setFg_miss(away_player_list.get(9).getFg_miss() + 1);
-                                away_player_list.get(9).setThree_miss(away_player_list.get(9).getThree_miss() + 1);
+                                away_player_list.get(4).setFg_miss(away_player_list.get(4).getFg_miss() + 1);
+                                away_player_list.get(4).setThree_miss(away_player_list.get(4).getThree_miss() + 1);
                             }
 
                             // update home player 9's missed fts
                             else if (stat_index == 5) {
-                                away_player_list.get(9).setFt_miss(away_player_list.get(9).getFt_miss() + 1);
+                                away_player_list.get(4).setFt_miss(away_player_list.get(4).getFt_miss() + 1);
                             }
 
                             // update home player 9's rebounds
@@ -1509,7 +1508,7 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 int new_reb = reb + 1;
                                 player9reb.setText("" + new_reb);
 
-                                away_player_list.get(9).setRebounds(away_player_list.get(9).getRebounds() + 1);
+                                away_player_list.get(4).setRebounds(away_player_list.get(4).getRebounds() + 1);
 
                             }
 
@@ -1520,26 +1519,26 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 int new_ast = ast + 1;
                                 player9ast.setText("" + new_ast);
 
-                                away_player_list.get(9).setAssists(away_player_list.get(9).getAssists() + 1);
+                                away_player_list.get(4).setAssists(away_player_list.get(4).getAssists() + 1);
                             }
 
                             // update home player 9's steals
                             else if (stat_index == 8) {
-                                away_player_list.get(9).setSteals(away_player_list.get(9).getSteals() + 1);
+                                away_player_list.get(4).setSteals(away_player_list.get(4).getSteals() + 1);
                             }
 
                             // update home player 9's blocks
                             else if (stat_index == 9) {
-                                away_player_list.get(9).setBlocks(away_player_list.get(9).getBlocks() + 1);
+                                away_player_list.get(4).setBlocks(away_player_list.get(4).getBlocks() + 1);
                             }
                             // update home player 9's fouls
                             else if (stat_index == 10) {
-                                away_player_list.get(9).setFouls(away_player_list.get(9).getFouls() + 1);
+                                away_player_list.get(4).setFouls(away_player_list.get(4).getFouls() + 1);
                             }
 
                             // update home player 9's turnovers
                             else if (stat_index == 11) {
-                                away_player_list.get(9).setTurnovers(away_player_list.get(9).getTurnovers() + 1);
+                                away_player_list.get(4).setTurnovers(away_player_list.get(4).getTurnovers() + 1);
                             }
 
                             break;
