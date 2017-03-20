@@ -1,9 +1,13 @@
 package com.statkeeperapp.stattracker;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 /**
  * Created by brand_000 on 3/19/2017.
  */
-public class Player {
+public class Player implements Serializable{
 
     String name, image_url;
     int fg_made, fg_miss, three_made, three_miss, ft_made, ft_miss, assists, rebounds, turnovers, fouls, steals, blocks, points;

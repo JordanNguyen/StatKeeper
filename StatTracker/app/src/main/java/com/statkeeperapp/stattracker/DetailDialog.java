@@ -107,20 +107,35 @@ public class DetailDialog extends DialogFragment {
         // two point stuff
         int fg_total = fg_made + fg_miss;
         fgs.setText("" + fg_made + " / " + fg_total);
-        float fg_perc = (float) fg_made / fg_total * 100;
-        fg_percent.setText("" + String.format("%.1f", fg_perc));
+        if (fg_made == 0 && fg_total == 0) {
+            fg_percent.setText("0.0");
+        }
+        else {
+            float fg_perc = (float) fg_made / fg_total * 100;
+            fg_percent.setText("" + String.format("%.1f", fg_perc));
+        }
 
         // three point stuff
         int three_total = three_made + three_miss;
         threes.setText("" + three_made + " / " + three_total);
-        float three_perc = (float) three_made / three_total * 100;
-        three_percent.setText("" + String.format("%.1f", three_perc));
+        if (three_made == 0 && three_total == 0) {
+            three_percent.setText("0.0");
+        }
+        else {
+            float three_perc = (float) three_made / three_total * 100;
+            three_percent.setText("" + String.format("%.1f", three_perc));
+        }
 
         // ft stuff
         int ft_total = ft_made + ft_miss;
         fts.setText("" + ft_made + " / " + ft_total);
-        float ft_perc = (float) ft_made / ft_total * 100;
-        ft_percent.setText("" + String.format("%.1f", ft_perc));
+        if (ft_made == 0 && ft_total == 0) {
+            ft_percent.setText("0.0");
+        }
+        else {
+            float ft_perc = (float) ft_made / ft_total * 100;
+            ft_percent.setText("" + String.format("%.1f", ft_perc));
+        }
 
         pts.setText("" + points);
         fls.setText("" + fouls);
