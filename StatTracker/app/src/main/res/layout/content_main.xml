@@ -935,8 +935,34 @@
               android:layout_centerHorizontal="true"
               android:layout_marginTop="4dp"
               android:layout_below="@id/text_home"
-
               />
+
+
+            <TextView
+                android:id="@+id/button_undo"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:text="UNDO"
+                android:textColor="@android:color/white"
+                android:gravity="center"
+                android:background="@drawable/pill_button"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/game_score"
+                android:layout_marginTop="20dp"
+                />
+
+            <TextView
+                android:id="@+id/button_quit_game"
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:text="END GAME"
+                android:textColor="@android:color/white"
+                android:gravity="center"
+                android:background="@drawable/pill_button"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/button_undo"
+                android:layout_marginTop="20dp"
+                />
 
         </RelativeLayout>
 
