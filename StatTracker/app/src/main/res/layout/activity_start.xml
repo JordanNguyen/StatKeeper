@@ -48,7 +48,7 @@
                 android:textSize="32dp"/>
 
             <Spinner
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/team1_spinner"
                 android:contentDescription="Select Team">
@@ -68,7 +68,7 @@
                 android:textSize="32dp"/>
 
             <Spinner
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/team2_spinner"
                 android:contentDescription="Select Team">
