@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
@@ -20,6 +21,9 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -49,6 +53,18 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
     ImageView left_player1, left_player2, left_player3, left_player4, left_player5, right_player1, right_player2, right_player3, right_player4, right_player5;
 
     TextView two_point_make, three_point_make;
+
+
+    ImageView left_player_plus_red1, left_player_plus_red2, left_player_plus_red3, left_player_plus_red4, left_player_plus_red5;
+    ImageView left_player_plus_green1, left_player_plus_green2, left_player_plus_green3, left_player_plus_green4, left_player_plus_green5;
+    ImageView left_player_plus_blue1, left_player_plus_blue2, left_player_plus_blue3, left_player_plus_blue4, left_player_plus_blue5;
+
+    ImageView right_player_plus_red1, right_player_plus_red2, right_player_plus_red3, right_player_plus_red4, right_player_plus_red5;
+    ImageView right_player_plus_green1, right_player_plus_green2, right_player_plus_green3, right_player_plus_green4, right_player_plus_green5;
+    ImageView right_player_plus_blue1, right_player_plus_blue2, right_player_plus_blue3, right_player_plus_blue4, right_player_plus_blue5;
+
+    int current_stat_index;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -301,6 +317,44 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
             }
         });
 
+
+        // initialize 3 possible images for each player when stat is dropped
+        left_player_plus_red1 = (ImageView) findViewById(R.id.plus_one_red1);
+        left_player_plus_red2 = (ImageView) findViewById(R.id.plus_one_red2);
+        left_player_plus_red3 = (ImageView) findViewById(R.id.plus_one_red3);
+        left_player_plus_red4 = (ImageView) findViewById(R.id.plus_one_red4);
+        left_player_plus_red5 = (ImageView) findViewById(R.id.plus_one_red5);
+
+        left_player_plus_green1 = (ImageView) findViewById(R.id.plus_one_green1);
+        left_player_plus_green2 = (ImageView) findViewById(R.id.plus_one_green2);
+        left_player_plus_green3 = (ImageView) findViewById(R.id.plus_one_green3);
+        left_player_plus_green4 = (ImageView) findViewById(R.id.plus_one_green4);
+        left_player_plus_green5 = (ImageView) findViewById(R.id.plus_one_green5);
+
+        left_player_plus_blue1 = (ImageView) findViewById(R.id.plus_one_blue1);
+        left_player_plus_blue2 = (ImageView) findViewById(R.id.plus_one_blue2);
+        left_player_plus_blue3 = (ImageView) findViewById(R.id.plus_one_blue3);
+        left_player_plus_blue4 = (ImageView) findViewById(R.id.plus_one_blue4);
+        left_player_plus_blue5 = (ImageView) findViewById(R.id.plus_one_blue5);
+
+        right_player_plus_red1 = (ImageView) findViewById(R.id.plus_one_red6);
+        right_player_plus_red2 = (ImageView) findViewById(R.id.plus_one_red7);
+        right_player_plus_red3 = (ImageView) findViewById(R.id.plus_one_red8);
+        right_player_plus_red4 = (ImageView) findViewById(R.id.plus_one_red9);
+        right_player_plus_red5 = (ImageView) findViewById(R.id.plus_one_red10);
+
+        right_player_plus_blue1 = (ImageView) findViewById(R.id.plus_one_blue6);
+        right_player_plus_blue2 = (ImageView) findViewById(R.id.plus_one_blue7);
+        right_player_plus_blue3 = (ImageView) findViewById(R.id.plus_one_blue8);
+        right_player_plus_blue4 = (ImageView) findViewById(R.id.plus_one_blue9);
+        right_player_plus_blue5 = (ImageView) findViewById(R.id.plus_one_blue10);
+
+        right_player_plus_green1 = (ImageView) findViewById(R.id.plus_one_green6);
+        right_player_plus_green2 = (ImageView) findViewById(R.id.plus_one_green7);
+        right_player_plus_green3 = (ImageView) findViewById(R.id.plus_one_green8);
+        right_player_plus_green4 = (ImageView) findViewById(R.id.plus_one_green9);
+        right_player_plus_green5 = (ImageView) findViewById(R.id.plus_one_green10);
+
     }
 
     public void onAcceptButtonClick() {
@@ -403,6 +457,7 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                 v.startDrag(data, shadowBuilder, v, 0);
                 v.setVisibility(View.VISIBLE);
                 Log.d("ON TOUCH", "stat index: " + index);
+                current_stat_index = index;
                 return true;
             }
             else {
@@ -414,7 +469,12 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
 
     class MyDragListener implements View.OnDragListener {
         Drawable enterShape = getResources().getDrawable(R.drawable.shape_hover);
+        Drawable enterShapeGreen = getResources().getDrawable(R.drawable.green_highlight_grey_back);
+        Drawable enterShapeRed = getResources().getDrawable(R.drawable.red_highlight_grey_back);
+        Drawable enterShapeBlue = getResources().getDrawable(R.drawable.blue_highlight_grey_back);
         Drawable normalShape = getResources().getDrawable(R.drawable.shape_normal);
+        Drawable green_highlgight_Shape = getResources().getDrawable(R.drawable.substitute_highlight);
+
 
         int index;
 
@@ -427,6 +487,8 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
             int action  = event.getAction();
 
 
+            final View final_view = v;
+
             switch (event.getAction()) {
 
                 case DragEvent.ACTION_DRAG_STARTED:
@@ -436,9 +498,22 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
 
                 // called when item is dragged into target layout
                 case DragEvent.ACTION_DRAG_ENTERED:
-                    v.setBackgroundDrawable(enterShape);
-                    Log.d("ENTER", "Entered the player card!");
+
+                    Log.d("ENTER", "Entered the player card! at current stat: " + current_stat_index);
+
+
+                    // set the highlight color when hovering over player card
+                    if (current_stat_index == 0 || current_stat_index == 1 || current_stat_index == 2) {
+                        v.setBackgroundDrawable(enterShapeGreen);
+                    }
+                    else if (current_stat_index == 3 || current_stat_index == 4 || current_stat_index == 5) {
+                        v.setBackgroundDrawable(enterShapeRed);
+                    }
+                    else {
+                        v.setBackgroundDrawable(enterShapeBlue);
+                    }
                     break;
+
                 case DragEvent.ACTION_DRAG_EXITED:
                    // v.setBackgroundDrawable(normalShape);
                     Log.d("DRAG", "Drag exited!");
@@ -459,6 +534,7 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                     int stat_index = Integer.parseInt(s);
 
                     v.setBackgroundDrawable(normalShape);
+
                     Log.d("DRAG", "Drag dropped! On card " + index + " stat index: " + stat_index);
 
                     String current_score = score.getText().toString();
@@ -475,6 +551,8 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
 
                             // update home player 0's fg made and points
                             if (stat_index == 0) {
+
+                                // update player card points stat
                                 String temp = player0pts.getText().toString();
                                 int pts = Integer.parseInt(temp);
                                 int new_pts = pts + 2;
@@ -486,6 +564,36 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
 
                                 home_player_list.get(0).setFg_made(home_player_list.get(0).getFg_made() + 1);
                                 home_player_list.get(0).setPoints(home_player_list.get(0).getPoints() + 2);
+
+                                // handle animation
+                                left_player1.setVisibility(View.INVISIBLE);
+                                left_player_plus_green1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_green1.setAnimation(zoom_in);
+                                left_player_plus_green1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_green1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_green1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_green1.setVisibility(View.INVISIBLE);
+                                                left_player1.setVisibility(View.VISIBLE);
+                                               // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
+
                             }
 
                             // update home player 0's three point made and points
@@ -502,6 +610,36 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 home_player_list.get(0).setThree_made(home_player_list.get(0).getThree_made() + 1);
                                 home_player_list.get(0).setFg_made(home_player_list.get(0).getFg_made() + 1);
                                 home_player_list.get(0).setPoints(home_player_list.get(0).getPoints() + 3);
+
+                                // handle animation
+                                left_player1.setVisibility(View.INVISIBLE);
+                                left_player_plus_green1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_green1.setAnimation(zoom_in);
+                                left_player_plus_green1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_green1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_green1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_green1.setVisibility(View.INVISIBLE);
+                                                left_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
+
                             }
 
                             // update home player 0's ft made and points
@@ -517,22 +655,135 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
 
                                 home_player_list.get(0).setFt_made(home_player_list.get(0).getFt_made() + 1);
                                 home_player_list.get(0).setPoints(home_player_list.get(0).getPoints() + 1);
+
+                                // handle animation
+                                left_player1.setVisibility(View.INVISIBLE);
+                                left_player_plus_green1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_green1.setAnimation(zoom_in);
+                                left_player_plus_green1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_green1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_green1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_green1.setVisibility(View.INVISIBLE);
+                                                left_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 0's fg misses
                             else if(stat_index == 3) {
                                 home_player_list.get(0).setFg_miss(home_player_list.get(0).getFg_miss() + 1);
+                                // handle animation
+                                left_player1.setVisibility(View.INVISIBLE);
+                                left_player_plus_red1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_red1.setAnimation(zoom_in);
+                                left_player_plus_red1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_red1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_red1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_red1.setVisibility(View.INVISIBLE);
+                                                left_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 0's three point misses
                             else if (stat_index == 4) {
                                 home_player_list.get(0).setThree_miss(home_player_list.get(0).getThree_miss() + 1);
                                 home_player_list.get(0).setFg_miss(home_player_list.get(0).getFg_miss() + 1);
+                                // handle animation
+                                left_player1.setVisibility(View.INVISIBLE);
+                                left_player_plus_red1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_red1.setAnimation(zoom_in);
+                                left_player_plus_red1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_red1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_red1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_red1.setVisibility(View.INVISIBLE);
+                                                left_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 0's missed fts
                             else if (stat_index == 5) {
                                 home_player_list.get(0).setFt_miss(home_player_list.get(0).getFt_miss() + 1);
+                                // handle animation
+                                left_player1.setVisibility(View.INVISIBLE);
+                                left_player_plus_red1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_red1.setAnimation(zoom_in);
+                                left_player_plus_red1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_red1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_red1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_red1.setVisibility(View.INVISIBLE);
+                                                left_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 0's rebounds
@@ -543,6 +794,35 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 player0reb.setText("" + new_reb);
 
                                 home_player_list.get(0).setRebounds(home_player_list.get(0).getRebounds() + 1);
+
+                                // handle animation
+                                left_player1.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue1.setAnimation(zoom_in);
+                                left_player_plus_blue1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue1.setVisibility(View.INVISIBLE);
+                                                left_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 0's assists
@@ -553,25 +833,164 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 player0ast.setText("" + new_ast);
 
                                 home_player_list.get(0).setAssists(home_player_list.get(0).getAssists() + 1);
+                                // handle animation
+                                left_player1.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue1.setAnimation(zoom_in);
+                                left_player_plus_blue1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue1.setVisibility(View.INVISIBLE);
+                                                left_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 0's steals
                             else if (stat_index == 8) {
                                 home_player_list.get(0).setSteals(home_player_list.get(0).getSteals() + 1);
+                                // handle animation
+                                left_player1.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue1.setAnimation(zoom_in);
+                                left_player_plus_blue1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue1.setVisibility(View.INVISIBLE);
+                                                left_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 0's blocks
                             else if (stat_index == 9) {
                                 home_player_list.get(0).setBlocks(home_player_list.get(0).getBlocks() + 1);
+                                // handle animation
+                                left_player1.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue1.setAnimation(zoom_in);
+                                left_player_plus_blue1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue1.setVisibility(View.INVISIBLE);
+                                                left_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
                             // update home player 0's fouls
                             else if (stat_index == 10) {
                                 home_player_list.get(0).setFouls(home_player_list.get(0).getFouls() + 1);
+                                // handle animation
+                                left_player1.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue1.setAnimation(zoom_in);
+                                left_player_plus_blue1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue1.setVisibility(View.INVISIBLE);
+                                                left_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 0's turnovers
                             else if (stat_index == 11) {
                                 home_player_list.get(0).setTurnovers(home_player_list.get(0).getTurnovers() + 1);
+                                // handle animation
+                                left_player1.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue1.setAnimation(zoom_in);
+                                left_player_plus_blue1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue1.setVisibility(View.INVISIBLE);
+                                                left_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             break;
@@ -594,6 +1013,34 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 home_player_list.get(1).setFg_made(home_player_list.get(1).getFg_made() + 1);
                                 home_player_list.get(1).setPoints(home_player_list.get(1).getPoints() + 2);
 
+                                // handle animation
+                                left_player2.setVisibility(View.INVISIBLE);
+                                left_player_plus_green2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_green2.setAnimation(zoom_in);
+                                left_player_plus_green2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_green2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_green2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_green2.setVisibility(View.INVISIBLE);
+                                                left_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
+
                             }
 
                             // update home player 1's three point made and points
@@ -610,6 +1057,34 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 home_player_list.get(1).setFg_made(home_player_list.get(1).getFg_made() + 1);
                                 home_player_list.get(1).setThree_made(home_player_list.get(1).getThree_made() + 1);
                                 home_player_list.get(1).setPoints(home_player_list.get(1).getPoints() + 3);
+
+                                // handle animation
+                                left_player2.setVisibility(View.INVISIBLE);
+                                left_player_plus_green2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_green2.setAnimation(zoom_in);
+                                left_player_plus_green2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_green2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_green2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_green2.setVisibility(View.INVISIBLE);
+                                                left_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 1's ft made and points
@@ -625,22 +1100,134 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
 
                                 home_player_list.get(1).setFt_made(home_player_list.get(1).getFt_made() + 1);
                                 home_player_list.get(1).setPoints(home_player_list.get(1).getPoints() + 1);
+
+                                // handle animation
+                                left_player2.setVisibility(View.INVISIBLE);
+                                left_player_plus_green2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_green2.setAnimation(zoom_in);
+                                left_player_plus_green2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_green2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_green2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_green2.setVisibility(View.INVISIBLE);
+                                                left_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 1's fg misses
                             else if(stat_index == 3) {
                                 home_player_list.get(1).setFg_miss(home_player_list.get(1).getFg_miss() + 1);
+                                // handle animation
+                                left_player2.setVisibility(View.INVISIBLE);
+                                left_player_plus_red2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_red2.setAnimation(zoom_in);
+                                left_player_plus_red2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_red2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_red2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_red2.setVisibility(View.INVISIBLE);
+                                                left_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 1's three point misses
                             else if (stat_index == 4) {
                                 home_player_list.get(1).setFg_miss(home_player_list.get(1).getFg_miss() + 1);
                                 home_player_list.get(1).setThree_miss(home_player_list.get(1).getThree_miss() + 1);
+                                // handle animation
+                                left_player2.setVisibility(View.INVISIBLE);
+                                left_player_plus_red2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_red2.setAnimation(zoom_in);
+                                left_player_plus_red2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_red2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_red2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_red2.setVisibility(View.INVISIBLE);
+                                                left_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 1's missed fts
                             else if (stat_index == 5) {
                                 home_player_list.get(1).setFt_miss(home_player_list.get(1).getFt_miss() + 1);
+                                // handle animation
+                                left_player2.setVisibility(View.INVISIBLE);
+                                left_player_plus_red2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_red2.setAnimation(zoom_in);
+                                left_player_plus_red2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_red2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_red2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_red2.setVisibility(View.INVISIBLE);
+                                                left_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 1's rebounds
@@ -651,6 +1238,34 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 player1reb.setText("" + new_reb);
 
                                 home_player_list.get(1).setRebounds(home_player_list.get(1).getRebounds() + 1);
+
+                                // handle animation
+                                left_player2.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue2.setAnimation(zoom_in);
+                                left_player_plus_blue2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue2.setVisibility(View.INVISIBLE);
+                                                left_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 1's assists
@@ -661,25 +1276,160 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 player1ast.setText("" + new_ast);
 
                                 home_player_list.get(1).setAssists(home_player_list.get(1).getAssists() + 1);
+                                // handle animation
+                                left_player2.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue2.setAnimation(zoom_in);
+                                left_player_plus_blue2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue2.setVisibility(View.INVISIBLE);
+                                                left_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 1's steals
                             else if (stat_index == 8) {
                                 home_player_list.get(1).setSteals(home_player_list.get(1).getSteals() + 1);
+                                // handle animation
+                                left_player2.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue2.setAnimation(zoom_in);
+                                left_player_plus_blue2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue2.setVisibility(View.INVISIBLE);
+                                                left_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 1's blocks
                             else if (stat_index == 9) {
                                 home_player_list.get(1).setBlocks(home_player_list.get(1).getBlocks() + 1);
+                                // handle animation
+                                left_player2.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue2.setAnimation(zoom_in);
+                                left_player_plus_blue2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue2.setVisibility(View.INVISIBLE);
+                                                left_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
                             // update home player 1's fouls
                             else if (stat_index == 10) {
                                 home_player_list.get(1).setFouls(home_player_list.get(1).getFouls() + 1);
+                                // handle animation
+                                left_player2.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue2.setAnimation(zoom_in);
+                                left_player_plus_blue2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue2.setVisibility(View.INVISIBLE);
+                                                left_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 1's turnovers
                             else if (stat_index == 11) {
                                 home_player_list.get(1).setTurnovers(home_player_list.get(1).getTurnovers() + 1);
+                                // handle animation
+                                left_player2.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue2.setAnimation(zoom_in);
+                                left_player_plus_blue2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue2.setVisibility(View.INVISIBLE);
+                                                left_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             break;
@@ -700,6 +1450,34 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 home_player_list.get(2).setFg_made(home_player_list.get(2).getFg_made() + 1);
                                 home_player_list.get(2).setPoints(home_player_list.get(2).getPoints() + 2);
 
+                                // handle animation
+                                left_player3.setVisibility(View.INVISIBLE);
+                                left_player_plus_green3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_green3.setAnimation(zoom_in);
+                                left_player_plus_green3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_green3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_green3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_green3.setVisibility(View.INVISIBLE);
+                                                left_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
+
                             }
 
                             // update home player 2's three point made and points
@@ -716,6 +1494,33 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 home_player_list.get(2).setThree_made(home_player_list.get(2).getThree_made() + 1);
                                 home_player_list.get(2).setPoints(home_player_list.get(2).getPoints() + 3);
                                 home_player_list.get(2).setFg_made(home_player_list.get(2).getFg_made() + 1);
+                                // handle animation
+                                left_player3.setVisibility(View.INVISIBLE);
+                                left_player_plus_green3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_green3.setAnimation(zoom_in);
+                                left_player_plus_green3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_green3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_green3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_green3.setVisibility(View.INVISIBLE);
+                                                left_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 2's ft made and points
@@ -731,22 +1536,133 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
 
                                 home_player_list.get(2).setFt_made(home_player_list.get(2).getFt_made() + 1);
                                 home_player_list.get(2).setPoints(home_player_list.get(2).getPoints() + 1);
+                                // handle animation
+                                left_player3.setVisibility(View.INVISIBLE);
+                                left_player_plus_green3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_green3.setAnimation(zoom_in);
+                                left_player_plus_green3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_green3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_green3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_green3.setVisibility(View.INVISIBLE);
+                                                left_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 2's fg misses
                             else if(stat_index == 3) {
                                 home_player_list.get(2).setFg_miss(home_player_list.get(2).getFg_miss() + 1);
+                                // handle animation
+                                left_player3.setVisibility(View.INVISIBLE);
+                                left_player_plus_red3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_red3.setAnimation(zoom_in);
+                                left_player_plus_red3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_red3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_red3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_red3.setVisibility(View.INVISIBLE);
+                                                left_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 2's three point misses
                             else if (stat_index == 4) {
                                 home_player_list.get(2).setFg_miss(home_player_list.get(2).getFg_miss() + 1);
                                 home_player_list.get(2).setThree_miss(home_player_list.get(2).getThree_miss() + 1);
+                                // handle animation
+                                left_player3.setVisibility(View.INVISIBLE);
+                                left_player_plus_red3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_red3.setAnimation(zoom_in);
+                                left_player_plus_red3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_red3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_red3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_red3.setVisibility(View.INVISIBLE);
+                                                left_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 2's missed fts
                             else if (stat_index == 5) {
                                 home_player_list.get(2).setFt_miss(home_player_list.get(2).getFt_miss() + 1);
+                                // handle animation
+                                left_player3.setVisibility(View.INVISIBLE);
+                                left_player_plus_red3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_red3.setAnimation(zoom_in);
+                                left_player_plus_red3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_red3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_red3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_red3.setVisibility(View.INVISIBLE);
+                                                left_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 2's rebounds
@@ -757,6 +1673,34 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 player2reb.setText("" + new_reb);
 
                                 home_player_list.get(2).setRebounds(home_player_list.get(2).getRebounds() + 1);
+
+                                // handle animation
+                                left_player3.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue3.setAnimation(zoom_in);
+                                left_player_plus_blue3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue3.setVisibility(View.INVISIBLE);
+                                                left_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 2's assists
@@ -767,25 +1711,165 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 player2ast.setText("" + new_ast);
 
                                 home_player_list.get(2).setAssists(home_player_list.get(2).getAssists() + 1);
+
+                                // handle animation
+                                left_player3.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue3.setAnimation(zoom_in);
+                                left_player_plus_blue3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue3.setVisibility(View.INVISIBLE);
+                                                left_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 2's steals
                             else if (stat_index == 8) {
                                 home_player_list.get(2).setSteals(home_player_list.get(2).getSteals() + 1);
+
+                                // handle animation
+                                left_player3.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue3.setAnimation(zoom_in);
+                                left_player_plus_blue3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue3.setVisibility(View.INVISIBLE);
+                                                left_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 2's blocks
                             else if (stat_index == 9) {
                                 home_player_list.get(2).setBlocks(home_player_list.get(2).getBlocks() + 1);
+
+                                // handle animation
+                                left_player3.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue3.setAnimation(zoom_in);
+                                left_player_plus_blue3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue3.setVisibility(View.INVISIBLE);
+                                                left_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
                             // update home player 2's fouls
                             else if (stat_index == 10) {
                                 home_player_list.get(2).setFouls(home_player_list.get(2).getFouls() + 1);
+
+                                // handle animation
+                                left_player3.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue3.setAnimation(zoom_in);
+                                left_player_plus_blue3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue3.setVisibility(View.INVISIBLE);
+                                                left_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 2's turnovers
                             else if (stat_index == 11) {
                                 home_player_list.get(2).setTurnovers(home_player_list.get(2).getTurnovers() + 1);
+
+                                // handle animation
+                                left_player3.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue3.setAnimation(zoom_in);
+                                left_player_plus_blue3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue3.setVisibility(View.INVISIBLE);
+                                                left_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             break;
@@ -807,6 +1891,35 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 home_player_list.get(3).setFg_made(home_player_list.get(3).getFg_made() + 1);
                                 home_player_list.get(3).setPoints(home_player_list.get(3).getPoints() + 2);
 
+                                // handle animation
+                                left_player4.setVisibility(View.INVISIBLE);
+                                left_player_plus_green4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_green4.setAnimation(zoom_in);
+                                left_player_plus_green4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_green4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_green4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_green4.setVisibility(View.INVISIBLE);
+                                                left_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
+
                             }
 
                             // update home player 3's three point made and points
@@ -823,6 +1936,34 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 home_player_list.get(3).setThree_made(home_player_list.get(3).getThree_made() + 1);
                                 home_player_list.get(3).setPoints(home_player_list.get(3).getPoints() + 3);
                                 home_player_list.get(3).setFg_made(home_player_list.get(3).getFg_made() + 1);
+                                // handle animation
+                                left_player4.setVisibility(View.INVISIBLE);
+                                left_player_plus_green4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_green4.setAnimation(zoom_in);
+                                left_player_plus_green4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_green4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_green4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_green4.setVisibility(View.INVISIBLE);
+                                                left_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 3's ft made and points
@@ -838,22 +1979,134 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
 
                                 home_player_list.get(3).setFt_made(home_player_list.get(3).getFt_made() + 1);
                                 home_player_list.get(3).setPoints(home_player_list.get(3).getPoints() + 1);
+                                // handle animation
+                                left_player4.setVisibility(View.INVISIBLE);
+                                left_player_plus_green4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_green4.setAnimation(zoom_in);
+                                left_player_plus_green4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_green4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_green4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_green4.setVisibility(View.INVISIBLE);
+                                                left_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 3's fg misses
                             else if(stat_index == 3) {
                                 home_player_list.get(3).setFg_miss(home_player_list.get(3).getFg_miss() + 1);
+                                // handle animation
+                                left_player4.setVisibility(View.INVISIBLE);
+                                left_player_plus_red4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_red4.setAnimation(zoom_in);
+                                left_player_plus_red4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_red4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_red4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_red4.setVisibility(View.INVISIBLE);
+                                                left_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 3's three point misses
                             else if (stat_index == 4) {
                                 home_player_list.get(3).setFg_miss(home_player_list.get(3).getFg_miss() + 1);
                                 home_player_list.get(3).setThree_miss(home_player_list.get(3).getThree_miss() + 1);
+                                // handle animation
+                                left_player4.setVisibility(View.INVISIBLE);
+                                left_player_plus_red4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_red4.setAnimation(zoom_in);
+                                left_player_plus_red4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_red4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_red4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_red4.setVisibility(View.INVISIBLE);
+                                                left_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 3's missed fts
                             else if (stat_index == 5) {
                                 home_player_list.get(3).setFt_miss(home_player_list.get(3).getFt_miss() + 1);
+                                // handle animation
+                                left_player4.setVisibility(View.INVISIBLE);
+                                left_player_plus_red4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_red4.setAnimation(zoom_in);
+                                left_player_plus_red4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_red4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_red4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_red4.setVisibility(View.INVISIBLE);
+                                                left_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 3's rebounds
@@ -864,6 +2117,34 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 player3reb.setText("" + new_reb);
 
                                 home_player_list.get(3).setRebounds(home_player_list.get(3).getRebounds() + 1);
+
+                                // handle animation
+                                left_player4.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue4.setAnimation(zoom_in);
+                                left_player_plus_blue4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue4.setVisibility(View.INVISIBLE);
+                                                left_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 3's assists
@@ -874,25 +2155,165 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 player3ast.setText("" + new_ast);
 
                                 home_player_list.get(3).setAssists(home_player_list.get(3).getAssists() + 1);
+
+                                // handle animation
+                                left_player4.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue4.setAnimation(zoom_in);
+                                left_player_plus_blue4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue4.setVisibility(View.INVISIBLE);
+                                                left_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 3's steals
                             else if (stat_index == 8) {
                                 home_player_list.get(3).setSteals(home_player_list.get(3).getSteals() + 1);
+
+                                // handle animation
+                                left_player4.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue4.setAnimation(zoom_in);
+                                left_player_plus_blue4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue4.setVisibility(View.INVISIBLE);
+                                                left_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 3's blocks
                             else if (stat_index == 9) {
                                 home_player_list.get(3).setBlocks(home_player_list.get(3).getBlocks() + 1);
+
+                                // handle animation
+                                left_player4.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue4.setAnimation(zoom_in);
+                                left_player_plus_blue4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue4.setVisibility(View.INVISIBLE);
+                                                left_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
                             // update home player 3's fouls
                             else if (stat_index == 10) {
                                 home_player_list.get(3).setFouls(home_player_list.get(3).getFouls() + 1);
+
+                                // handle animation
+                                left_player4.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue4.setAnimation(zoom_in);
+                                left_player_plus_blue4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue4.setVisibility(View.INVISIBLE);
+                                                left_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 3's turnovers
                             else if (stat_index == 11) {
                                 home_player_list.get(3).setTurnovers(home_player_list.get(3).getTurnovers() + 1);
+
+                                // handle animation
+                                left_player4.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue4.setAnimation(zoom_in);
+                                left_player_plus_blue4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue4.setVisibility(View.INVISIBLE);
+                                                left_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             break;
@@ -914,6 +2335,35 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 home_player_list.get(4).setFg_made(home_player_list.get(4).getFg_made() + 1);
                                 home_player_list.get(4).setPoints(home_player_list.get(4).getPoints() + 2);
 
+                                // handle animation
+                                left_player5.setVisibility(View.INVISIBLE);
+                                left_player_plus_green5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_green5.setAnimation(zoom_in);
+                                left_player_plus_green5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_green5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_green5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_green5.setVisibility(View.INVISIBLE);
+                                                left_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
+
                             }
 
                             // update home player 4's three point made and points
@@ -930,6 +2380,35 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 home_player_list.get(4).setThree_made(home_player_list.get(4).getThree_made() + 1);
                                 home_player_list.get(4).setPoints(home_player_list.get(4).getPoints() + 3);
                                 home_player_list.get(4).setFg_made(home_player_list.get(4).getFg_made() + 1);
+
+                                // handle animation
+                                left_player5.setVisibility(View.INVISIBLE);
+                                left_player_plus_green5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_green5.setAnimation(zoom_in);
+                                left_player_plus_green5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_green5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_green5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_green5.setVisibility(View.INVISIBLE);
+                                                left_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 4's ft made and points
@@ -945,22 +2424,135 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
 
                                 home_player_list.get(4).setFt_made(home_player_list.get(4).getFt_made() + 1);
                                 home_player_list.get(4).setPoints(home_player_list.get(4).getPoints() + 1);
+
+                                // handle animation
+                                left_player5.setVisibility(View.INVISIBLE);
+                                left_player_plus_green5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_green5.setAnimation(zoom_in);
+                                left_player_plus_green5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_green5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_green5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_green5.setVisibility(View.INVISIBLE);
+                                                left_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 4's fg misses
                             else if(stat_index == 3) {
                                 home_player_list.get(4).setFg_miss(home_player_list.get(4).getFg_miss() + 1);
+                                // handle animation
+                                left_player5.setVisibility(View.INVISIBLE);
+                                left_player_plus_red5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_red5.setAnimation(zoom_in);
+                                left_player_plus_red5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_red5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_red5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_red5.setVisibility(View.INVISIBLE);
+                                                left_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 4's three point misses
                             else if (stat_index == 4) {
                                 home_player_list.get(4).setFg_miss(home_player_list.get(4).getFg_miss() + 1);
                                 home_player_list.get(4).setThree_miss(home_player_list.get(4).getThree_miss() + 1);
+                                // handle animation
+                                left_player5.setVisibility(View.INVISIBLE);
+                                left_player_plus_red5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_red5.setAnimation(zoom_in);
+                                left_player_plus_red5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_red5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_red5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_red5.setVisibility(View.INVISIBLE);
+                                                left_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 4's missed fts
                             else if (stat_index == 5) {
                                 home_player_list.get(4).setFt_miss(home_player_list.get(4).getFt_miss() + 1);
+                                // handle animation
+                                left_player5.setVisibility(View.INVISIBLE);
+                                left_player_plus_red5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_red5.setAnimation(zoom_in);
+                                left_player_plus_red5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_red5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_red5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_red5.setVisibility(View.INVISIBLE);
+                                                left_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 4's rebounds
@@ -971,6 +2563,34 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 player4reb.setText("" + new_reb);
 
                                 home_player_list.get(4).setRebounds(home_player_list.get(4).getRebounds() + 1);
+
+                                // handle animation
+                                left_player5.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue5.setAnimation(zoom_in);
+                                left_player_plus_blue5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue5.setVisibility(View.INVISIBLE);
+                                                left_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 4's assists
@@ -981,25 +2601,165 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 player4ast.setText("" + new_ast);
 
                                 home_player_list.get(4).setAssists(home_player_list.get(4).getAssists() + 1);
+
+                                // handle animation
+                                left_player5.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue5.setAnimation(zoom_in);
+                                left_player_plus_blue5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue5.setVisibility(View.INVISIBLE);
+                                                left_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 4's steals
                             else if (stat_index == 8) {
                                 home_player_list.get(4).setSteals(home_player_list.get(4).getSteals() + 1);
+
+                                // handle animation
+                                left_player5.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue5.setAnimation(zoom_in);
+                                left_player_plus_blue5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue5.setVisibility(View.INVISIBLE);
+                                                left_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 4's blocks
                             else if (stat_index == 9) {
                                 home_player_list.get(4).setBlocks(home_player_list.get(4).getBlocks() + 1);
+
+                                // handle animation
+                                left_player5.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue5.setAnimation(zoom_in);
+                                left_player_plus_blue5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue5.setVisibility(View.INVISIBLE);
+                                                left_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
                             // update home player 4's fouls
                             else if (stat_index == 10) {
                                 home_player_list.get(4).setFouls(home_player_list.get(4).getFouls() + 1);
+
+                                // handle animation
+                                left_player5.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue5.setAnimation(zoom_in);
+                                left_player_plus_blue5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue5.setVisibility(View.INVISIBLE);
+                                                left_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 4's turnovers
                             else if (stat_index == 11) {
                                 home_player_list.get(4).setTurnovers(home_player_list.get(4).getTurnovers() + 1);
+
+                                // handle animation
+                                left_player5.setVisibility(View.INVISIBLE);
+                                left_player_plus_blue5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                left_player_plus_blue5.setAnimation(zoom_in);
+                                left_player_plus_blue5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                left_player_plus_blue5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        left_player_plus_blue5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                left_player_plus_blue5.setVisibility(View.INVISIBLE);
+                                                left_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             break;
@@ -1023,6 +2783,35 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_player_list.get(0).setFg_made(away_player_list.get(0).getFg_made() + 1);
                                 away_player_list.get(0).setPoints(away_player_list.get(0).getPoints() + 2);
 
+                                // handle animation
+                                right_player1.setVisibility(View.INVISIBLE);
+                                right_player_plus_green1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_green1.setAnimation(zoom_in);
+                                right_player_plus_green1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_green1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_green1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_green1.setVisibility(View.INVISIBLE);
+                                                right_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
+
                             }
 
                             // update home player 5's three point made and points
@@ -1039,6 +2828,35 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_player_list.get(0).setFg_made(away_player_list.get(0).getFg_made() + 1);
                                 away_player_list.get(0).setThree_made(away_player_list.get(0).getThree_made() + 1);
                                 away_player_list.get(0).setPoints(away_player_list.get(0).getPoints() + 3);
+
+                                // handle animation
+                                right_player1.setVisibility(View.INVISIBLE);
+                                right_player_plus_green1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_green1.setAnimation(zoom_in);
+                                right_player_plus_green1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_green1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_green1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_green1.setVisibility(View.INVISIBLE);
+                                                right_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 5's ft made and points
@@ -1054,22 +2872,135 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
 
                                 away_player_list.get(0).setFt_made(away_player_list.get(0).getFt_made() + 1);
                                 away_player_list.get(0).setPoints(away_player_list.get(0).getPoints() + 1);
+
+                                // handle animation
+                                right_player1.setVisibility(View.INVISIBLE);
+                                right_player_plus_green1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_green1.setAnimation(zoom_in);
+                                right_player_plus_green1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_green1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_green1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_green1.setVisibility(View.INVISIBLE);
+                                                right_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 5's fg misses
                             else if(stat_index == 3) {
                                 away_player_list.get(0).setFg_miss(away_player_list.get(0).getFg_miss() + 1);
+                                // handle animation
+                                right_player1.setVisibility(View.INVISIBLE);
+                                right_player_plus_red1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_red1.setAnimation(zoom_in);
+                                right_player_plus_red1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_red1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_red1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_red1.setVisibility(View.INVISIBLE);
+                                                right_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 5's three point misses
                             else if (stat_index == 4) {
                                 away_player_list.get(0).setFg_miss(away_player_list.get(0).getFg_miss() + 1);
                                 away_player_list.get(0).setThree_miss(away_player_list.get(0).getThree_miss() + 1);
+                                // handle animation
+                                right_player1.setVisibility(View.INVISIBLE);
+                                right_player_plus_red1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_red1.setAnimation(zoom_in);
+                                right_player_plus_red1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_red1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_red1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_red1.setVisibility(View.INVISIBLE);
+                                                right_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 5's missed fts
                             else if (stat_index == 5) {
                                 away_player_list.get(0).setFt_miss(away_player_list.get(0).getFt_miss() + 1);
+                                // handle animation
+                                right_player1.setVisibility(View.INVISIBLE);
+                                right_player_plus_red1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_red1.setAnimation(zoom_in);
+                                right_player_plus_red1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_red1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_red1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_red1.setVisibility(View.INVISIBLE);
+                                                right_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 5's rebounds
@@ -1080,6 +3011,34 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 player5reb.setText("" + new_reb);
 
                                 away_player_list.get(0).setRebounds(away_player_list.get(0).getRebounds() + 1);
+
+                                // handle animation
+                                right_player1.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue1.setAnimation(zoom_in);
+                                right_player_plus_blue1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue1.setVisibility(View.INVISIBLE);
+                                                right_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 5's assists
@@ -1090,25 +3049,165 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 player5ast.setText("" + new_ast);
 
                                 away_player_list.get(0).setAssists(away_player_list.get(0).getAssists() + 1);
+
+                                // handle animation
+                                right_player1.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue1.setAnimation(zoom_in);
+                                right_player_plus_blue1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue1.setVisibility(View.INVISIBLE);
+                                                right_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 5's steals
                             else if (stat_index == 8) {
                                 away_player_list.get(0).setSteals(away_player_list.get(0).getSteals() + 1);
+
+                                // handle animation
+                                right_player1.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue1.setAnimation(zoom_in);
+                                right_player_plus_blue1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue1.setVisibility(View.INVISIBLE);
+                                                right_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 5's blocks
                             else if (stat_index == 9) {
                                 away_player_list.get(0).setBlocks(away_player_list.get(0).getBlocks() + 1);
+
+                                // handle animation
+                                right_player1.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue1.setAnimation(zoom_in);
+                                right_player_plus_blue1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue1.setVisibility(View.INVISIBLE);
+                                                right_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
                             // update home player 5's fouls
                             else if (stat_index == 10) {
                                 away_player_list.get(0).setFouls(away_player_list.get(0).getFouls() + 1);
+
+                                // handle animation
+                                right_player1.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue1.setAnimation(zoom_in);
+                                right_player_plus_blue1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue1.setVisibility(View.INVISIBLE);
+                                                right_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 5's turnovers
                             else if (stat_index == 11) {
                                 away_player_list.get(0).setTurnovers(away_player_list.get(0).getTurnovers() + 1);
+
+                                // handle animation
+                                right_player1.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue1.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue1.setAnimation(zoom_in);
+                                right_player_plus_blue1.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue1.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue1.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue1.setVisibility(View.INVISIBLE);
+                                                right_player1.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             break;
@@ -1130,6 +3229,35 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_player_list.get(1).setFg_made(away_player_list.get(1).getFg_made() + 1);
                                 away_player_list.get(1).setPoints(away_player_list.get(1).getPoints() + 2);
 
+                                // handle animation
+                                right_player2.setVisibility(View.INVISIBLE);
+                                right_player_plus_green2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_green2.setAnimation(zoom_in);
+                                right_player_plus_green2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_green2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_green2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_green2.setVisibility(View.INVISIBLE);
+                                                right_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
+
                             }
 
                             // update home player 6's three point made and points
@@ -1146,6 +3274,35 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_player_list.get(1).setFg_made(away_player_list.get(1).getFg_made() + 1);
                                 away_player_list.get(1).setThree_made(away_player_list.get(1).getThree_made() + 1);
                                 away_player_list.get(1).setPoints(away_player_list.get(1).getPoints() + 3);
+
+                                // handle animation
+                                right_player2.setVisibility(View.INVISIBLE);
+                                right_player_plus_green2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_green2.setAnimation(zoom_in);
+                                right_player_plus_green2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_green2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_green2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_green2.setVisibility(View.INVISIBLE);
+                                                right_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 6's ft made and points
@@ -1161,22 +3318,135 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
 
                                 away_player_list.get(1).setFt_made(away_player_list.get(1).getFt_made() + 1);
                                 away_player_list.get(1).setPoints(away_player_list.get(1).getPoints() + 1);
+
+                                // handle animation
+                                right_player2.setVisibility(View.INVISIBLE);
+                                right_player_plus_green2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_green2.setAnimation(zoom_in);
+                                right_player_plus_green2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_green2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_green2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_green2.setVisibility(View.INVISIBLE);
+                                                right_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 6's fg misses
                             else if(stat_index == 3) {
                                 away_player_list.get(1).setFg_miss(away_player_list.get(1).getFg_miss() + 1);
+                                // handle animation
+                                right_player2.setVisibility(View.INVISIBLE);
+                                right_player_plus_red2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_red2.setAnimation(zoom_in);
+                                right_player_plus_red2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_red2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_red2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_red2.setVisibility(View.INVISIBLE);
+                                                right_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 6's three point misses
                             else if (stat_index == 4) {
                                 away_player_list.get(1).setFg_miss(away_player_list.get(1).getFg_miss() + 1);
                                 away_player_list.get(1).setThree_miss(away_player_list.get(1).getThree_miss() + 1);
+                                // handle animation
+                                right_player2.setVisibility(View.INVISIBLE);
+                                right_player_plus_red2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_red2.setAnimation(zoom_in);
+                                right_player_plus_red2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_red2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_red2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_red2.setVisibility(View.INVISIBLE);
+                                                right_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 6's missed fts
                             else if (stat_index == 5) {
                                 away_player_list.get(1).setFt_miss(away_player_list.get(1).getFt_miss() + 1);
+                                // handle animation
+                                right_player2.setVisibility(View.INVISIBLE);
+                                right_player_plus_red2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_red2.setAnimation(zoom_in);
+                                right_player_plus_red2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_red2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_red2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_red2.setVisibility(View.INVISIBLE);
+                                                right_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 6's rebounds
@@ -1187,6 +3457,34 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 player6reb.setText("" + new_reb);
 
                                 away_player_list.get(1).setRebounds(away_player_list.get(1).getRebounds() + 1);
+
+                                // handle animation
+                                right_player2.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue2.setAnimation(zoom_in);
+                                right_player_plus_blue2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue2.setVisibility(View.INVISIBLE);
+                                                right_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 6's assists
@@ -1197,25 +3495,165 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 player6ast.setText("" + new_ast);
 
                                 away_player_list.get(1).setAssists(away_player_list.get(1).getAssists() + 1);
+
+                                // handle animation
+                                right_player2.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue2.setAnimation(zoom_in);
+                                right_player_plus_blue2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue2.setVisibility(View.INVISIBLE);
+                                                right_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 6's steals
                             else if (stat_index == 8) {
                                 away_player_list.get(1).setSteals(away_player_list.get(1).getSteals() + 1);
+
+                                // handle animation
+                                right_player2.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue2.setAnimation(zoom_in);
+                                right_player_plus_blue2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue2.setVisibility(View.INVISIBLE);
+                                                right_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 6's blocks
                             else if (stat_index == 9) {
                                 away_player_list.get(1).setBlocks(away_player_list.get(1).getBlocks() + 1);
+
+                                // handle animation
+                                right_player2.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue2.setAnimation(zoom_in);
+                                right_player_plus_blue2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue2.setVisibility(View.INVISIBLE);
+                                                right_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
                             // update home player 6's fouls
                             else if (stat_index == 10) {
                                 away_player_list.get(1).setFouls(away_player_list.get(1).getFouls() + 1);
+
+                                // handle animation
+                                right_player2.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue2.setAnimation(zoom_in);
+                                right_player_plus_blue2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue2.setVisibility(View.INVISIBLE);
+                                                right_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 6's turnovers
                             else if (stat_index == 11) {
                                 away_player_list.get(1).setTurnovers(away_player_list.get(1).getTurnovers() + 1);
+
+                                // handle animation
+                                right_player2.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue2.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue2.setAnimation(zoom_in);
+                                right_player_plus_blue2.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue2.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue2.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue2.setVisibility(View.INVISIBLE);
+                                                right_player2.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             break;
@@ -1237,6 +3675,35 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_player_list.get(2).setFg_made(away_player_list.get(2).getFg_made() + 1);
                                 away_player_list.get(2).setPoints(away_player_list.get(2).getPoints() + 2);
 
+                                // handle animation
+                                right_player3.setVisibility(View.INVISIBLE);
+                                right_player_plus_green3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_green3.setAnimation(zoom_in);
+                                right_player_plus_green3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_green3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_green3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_green3.setVisibility(View.INVISIBLE);
+                                                right_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
+
                             }
 
                             // update home player 7's three point made and points
@@ -1253,6 +3720,35 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_player_list.get(2).setFg_made(away_player_list.get(2).getFg_made() + 1);
                                 away_player_list.get(2).setThree_made(away_player_list.get(2).getThree_made() + 1);
                                 away_player_list.get(2).setPoints(away_player_list.get(2).getPoints() + 3);
+
+                                // handle animation
+                                right_player3.setVisibility(View.INVISIBLE);
+                                right_player_plus_green3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_green3.setAnimation(zoom_in);
+                                right_player_plus_green3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_green3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_green3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_green3.setVisibility(View.INVISIBLE);
+                                                right_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 7's ft made and points
@@ -1268,22 +3764,135 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
 
                                 away_player_list.get(2).setFt_made(away_player_list.get(2).getFt_made() + 1);
                                 away_player_list.get(2).setPoints(away_player_list.get(2).getPoints() + 1);
+
+                                // handle animation
+                                right_player3.setVisibility(View.INVISIBLE);
+                                right_player_plus_green3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_green3.setAnimation(zoom_in);
+                                right_player_plus_green3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_green3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_green3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_green3.setVisibility(View.INVISIBLE);
+                                                right_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 7's fg misses
                             else if(stat_index == 3) {
                                 away_player_list.get(2).setFg_miss(away_player_list.get(2).getFg_miss() + 1);
+                                // handle animation
+                                right_player3.setVisibility(View.INVISIBLE);
+                                right_player_plus_red3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_red3.setAnimation(zoom_in);
+                                right_player_plus_red3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_red3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_red3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_red3.setVisibility(View.INVISIBLE);
+                                                right_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 7's three point misses
                             else if (stat_index == 4) {
                                 away_player_list.get(2).setThree_miss(away_player_list.get(2).getThree_miss() + 1);
                                 away_player_list.get(2).setFg_miss(away_player_list.get(2).getFg_miss() + 1);
+                                // handle animation
+                                right_player3.setVisibility(View.INVISIBLE);
+                                right_player_plus_red3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_red3.setAnimation(zoom_in);
+                                right_player_plus_red3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_red3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_red3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_red3.setVisibility(View.INVISIBLE);
+                                                right_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 7's missed fts
                             else if (stat_index == 5) {
                                 away_player_list.get(2).setFt_miss(away_player_list.get(2).getFt_miss() + 1);
+                                // handle animation
+                                right_player3.setVisibility(View.INVISIBLE);
+                                right_player_plus_red3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_red3.setAnimation(zoom_in);
+                                right_player_plus_red3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_red3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_red3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_red3.setVisibility(View.INVISIBLE);
+                                                right_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 7's rebounds
@@ -1294,6 +3903,35 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 player7reb.setText("" + new_reb);
 
                                 away_player_list.get(2).setRebounds(away_player_list.get(2).getRebounds() + 1);
+
+                                // handle animation
+                                right_player3.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue3.setAnimation(zoom_in);
+                                right_player_plus_blue3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue3.setVisibility(View.INVISIBLE);
+                                                right_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
+
                             }
 
                             // update home player 7's assists
@@ -1304,25 +3942,165 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 player7ast.setText("" + new_ast);
 
                                 away_player_list.get(2).setAssists(away_player_list.get(2).getAssists() + 1);
+
+                                // handle animation
+                                right_player3.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue3.setAnimation(zoom_in);
+                                right_player_plus_blue3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue3.setVisibility(View.INVISIBLE);
+                                                right_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 7's steals
                             else if (stat_index == 8) {
                                 away_player_list.get(2).setSteals(away_player_list.get(2).getSteals() + 1);
+
+                                // handle animation
+                                right_player3.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue3.setAnimation(zoom_in);
+                                right_player_plus_blue3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue3.setVisibility(View.INVISIBLE);
+                                                right_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 7's blocks
                             else if (stat_index == 9) {
                                 away_player_list.get(2).setBlocks(away_player_list.get(2).getBlocks() + 1);
+
+                                // handle animation
+                                right_player3.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue3.setAnimation(zoom_in);
+                                right_player_plus_blue3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue3.setVisibility(View.INVISIBLE);
+                                                right_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
                             // update home player 7's fouls
                             else if (stat_index == 10) {
                                 away_player_list.get(2).setFouls(away_player_list.get(2).getFouls() + 1);
+
+                                // handle animation
+                                right_player3.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue3.setAnimation(zoom_in);
+                                right_player_plus_blue3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue3.setVisibility(View.INVISIBLE);
+                                                right_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 7's turnovers
                             else if (stat_index == 11) {
                                 away_player_list.get(2).setTurnovers(away_player_list.get(2).getTurnovers() + 1);
+
+                                // handle animation
+                                right_player3.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue3.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue3.setAnimation(zoom_in);
+                                right_player_plus_blue3.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue3.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue3.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue3.setVisibility(View.INVISIBLE);
+                                                right_player3.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             break;
@@ -1344,6 +4122,35 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_player_list.get(3).setFg_made(away_player_list.get(3).getFg_made() + 1);
                                 away_player_list.get(3).setPoints(away_player_list.get(3).getPoints() + 2);
 
+                                // handle animation
+                                right_player4.setVisibility(View.INVISIBLE);
+                                right_player_plus_green4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_green4.setAnimation(zoom_in);
+                                right_player_plus_green4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_green4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_green4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_green4.setVisibility(View.INVISIBLE);
+                                                right_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
+
                             }
 
                             // update home player 7's three point made and points
@@ -1360,6 +4167,35 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_player_list.get(3).setThree_made(away_player_list.get(3).getThree_made() + 1);
                                 away_player_list.get(3).setPoints(away_player_list.get(3).getPoints() + 3);
                                 away_player_list.get(3).setFg_made(away_player_list.get(3).getFg_made() + 1);
+
+                                // handle animation
+                                right_player4.setVisibility(View.INVISIBLE);
+                                right_player_plus_green4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_green4.setAnimation(zoom_in);
+                                right_player_plus_green4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_green4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_green4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_green4.setVisibility(View.INVISIBLE);
+                                                right_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 8's ft made and points
@@ -1375,22 +4211,135 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
 
                                 away_player_list.get(3).setFt_made(away_player_list.get(3).getFt_made() + 1);
                                 away_player_list.get(3).setPoints(away_player_list.get(3).getPoints() + 1);
+
+                                // handle animation
+                                right_player4.setVisibility(View.INVISIBLE);
+                                right_player_plus_green4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_green4.setAnimation(zoom_in);
+                                right_player_plus_green4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_green4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_green4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_green4.setVisibility(View.INVISIBLE);
+                                                right_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 8's fg misses
                             else if(stat_index == 3) {
                                 away_player_list.get(3).setFg_miss(away_player_list.get(3).getFg_miss() + 1);
+                                // handle animation
+                                right_player4.setVisibility(View.INVISIBLE);
+                                right_player_plus_red4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_red4.setAnimation(zoom_in);
+                                right_player_plus_red4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_red4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_red4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_red4.setVisibility(View.INVISIBLE);
+                                                right_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 8's three point misses
                             else if (stat_index == 4) {
                                 away_player_list.get(3).setFg_miss(away_player_list.get(3).getFg_miss() + 1);
                                 away_player_list.get(3).setThree_miss(away_player_list.get(3).getThree_miss() + 1);
+                                // handle animation
+                                right_player4.setVisibility(View.INVISIBLE);
+                                right_player_plus_red4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_red4.setAnimation(zoom_in);
+                                right_player_plus_red4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_red4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_red4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_red4.setVisibility(View.INVISIBLE);
+                                                right_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 8's missed fts
                             else if (stat_index == 5) {
                                 away_player_list.get(3).setFt_miss(away_player_list.get(3).getFt_miss() + 1);
+                                // handle animation
+                                right_player4.setVisibility(View.INVISIBLE);
+                                right_player_plus_red4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_red4.setAnimation(zoom_in);
+                                right_player_plus_red4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_red4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_red4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_red4.setVisibility(View.INVISIBLE);
+                                                right_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 8's rebounds
@@ -1401,6 +4350,34 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 player8reb.setText("" + new_reb);
 
                                 away_player_list.get(3).setRebounds(away_player_list.get(3).getRebounds() + 1);
+
+                                // handle animation
+                                right_player4.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue4.setAnimation(zoom_in);
+                                right_player_plus_blue4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue4.setVisibility(View.INVISIBLE);
+                                                right_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 8's assists
@@ -1411,25 +4388,165 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 player8ast.setText("" + new_ast);
 
                                 away_player_list.get(3).setAssists(away_player_list.get(3).getAssists() + 1);
+
+                                // handle animation
+                                right_player4.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue4.setAnimation(zoom_in);
+                                right_player_plus_blue4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue4.setVisibility(View.INVISIBLE);
+                                                right_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 8's steals
                             else if (stat_index == 8) {
                                 away_player_list.get(3).setSteals(away_player_list.get(3).getSteals() + 1);
+
+                                // handle animation
+                                right_player4.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue4.setAnimation(zoom_in);
+                                right_player_plus_blue4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue4.setVisibility(View.INVISIBLE);
+                                                right_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 8's blocks
                             else if (stat_index == 9) {
                                 away_player_list.get(3).setBlocks(away_player_list.get(3).getBlocks() + 1);
+
+                                // handle animation
+                                right_player4.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue4.setAnimation(zoom_in);
+                                right_player_plus_blue4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue4.setVisibility(View.INVISIBLE);
+                                                right_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
                             // update home player 8's fouls
                             else if (stat_index == 10) {
                                 away_player_list.get(3).setFouls(away_player_list.get(3).getFouls() + 1);
+
+                                // handle animation
+                                right_player4.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue4.setAnimation(zoom_in);
+                                right_player_plus_blue4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue4.setVisibility(View.INVISIBLE);
+                                                right_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 8's turnovers
                             else if (stat_index == 11) {
                                 away_player_list.get(3).setTurnovers(away_player_list.get(3).getTurnovers() + 1);
+
+                                // handle animation
+                                right_player4.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue4.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue4.setAnimation(zoom_in);
+                                right_player_plus_blue4.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue4.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue4.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue4.setVisibility(View.INVISIBLE);
+                                                right_player4.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             break;
@@ -1452,6 +4569,35 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_player_list.get(4).setFg_made(away_player_list.get(4).getFg_made() + 1);
                                 away_player_list.get(4).setPoints(away_player_list.get(4).getPoints() + 2);
 
+                                // handle animation
+                                right_player5.setVisibility(View.INVISIBLE);
+                                right_player_plus_green5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_green5.setAnimation(zoom_in);
+                                right_player_plus_green5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_green5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_green5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_green5.setVisibility(View.INVISIBLE);
+                                                right_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
+
                             }
 
                             // update home player 7's three point made and points
@@ -1468,6 +4614,41 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 away_player_list.get(4).setThree_made(away_player_list.get(4).getThree_made() + 1);
                                 away_player_list.get(4).setPoints(away_player_list.get(4).getPoints() + 3);
                                 away_player_list.get(4).setFg_made(away_player_list.get(4).getFg_made() + 1);
+
+                                // update game score
+                                score.setText("" + home_score + " - " + away_score);
+
+                                away_player_list.get(4).setFg_made(away_player_list.get(4).getFg_made() + 1);
+                                away_player_list.get(4).setPoints(away_player_list.get(4).getPoints() + 2);
+
+                                // handle animation
+                                right_player5.setVisibility(View.INVISIBLE);
+                                right_player_plus_green5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_green5.setAnimation(zoom_in);
+                                right_player_plus_green5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_green5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_green5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_green5.setVisibility(View.INVISIBLE);
+                                                right_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 9's ft made and points
@@ -1483,22 +4664,141 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
 
                                 away_player_list.get(4).setFt_made(away_player_list.get(4).getFt_made() + 1);
                                 away_player_list.get(4).setPoints(away_player_list.get(4).getPoints() + 1);
+
+                                // update game score
+                                score.setText("" + home_score + " - " + away_score);
+
+                                away_player_list.get(4).setFg_made(away_player_list.get(4).getFg_made() + 1);
+                                away_player_list.get(4).setPoints(away_player_list.get(4).getPoints() + 2);
+
+                                // handle animation
+                                right_player5.setVisibility(View.INVISIBLE);
+                                right_player_plus_green5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_green5.setAnimation(zoom_in);
+                                right_player_plus_green5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_green5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_green5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_green5.setVisibility(View.INVISIBLE);
+                                                right_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 9's fg misses
                             else if(stat_index == 3) {
                                 away_player_list.get(4).setFg_miss(away_player_list.get(4).getFg_miss() + 1);
+                                // handle animation
+                                right_player5.setVisibility(View.INVISIBLE);
+                                right_player_plus_red5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_red5.setAnimation(zoom_in);
+                                right_player_plus_red5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_red5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_red5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_red5.setVisibility(View.INVISIBLE);
+                                                right_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 9's three point misses
                             else if (stat_index == 4) {
                                 away_player_list.get(4).setFg_miss(away_player_list.get(4).getFg_miss() + 1);
                                 away_player_list.get(4).setThree_miss(away_player_list.get(4).getThree_miss() + 1);
+                                // handle animation
+                                right_player5.setVisibility(View.INVISIBLE);
+                                right_player_plus_red5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_red5.setAnimation(zoom_in);
+                                right_player_plus_red5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_red5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_red5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_red5.setVisibility(View.INVISIBLE);
+                                                right_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 9's missed fts
                             else if (stat_index == 5) {
                                 away_player_list.get(4).setFt_miss(away_player_list.get(4).getFt_miss() + 1);
+                                // handle animation
+                                right_player5.setVisibility(View.INVISIBLE);
+                                right_player_plus_red5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_red5.setAnimation(zoom_in);
+                                right_player_plus_red5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_red5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_red5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_red5.setVisibility(View.INVISIBLE);
+                                                right_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 9's rebounds
@@ -1510,6 +4810,34 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
 
                                 away_player_list.get(4).setRebounds(away_player_list.get(4).getRebounds() + 1);
 
+                                // handle animation
+                                right_player5.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue5.setAnimation(zoom_in);
+                                right_player_plus_blue5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue5.setVisibility(View.INVISIBLE);
+                                                right_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
+
                             }
 
                             // update home player 9's assists
@@ -1520,25 +4848,165 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
                                 player9ast.setText("" + new_ast);
 
                                 away_player_list.get(4).setAssists(away_player_list.get(4).getAssists() + 1);
+
+                                // handle animation
+                                right_player5.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue5.setAnimation(zoom_in);
+                                right_player_plus_blue5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue5.setVisibility(View.INVISIBLE);
+                                                right_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 9's steals
                             else if (stat_index == 8) {
                                 away_player_list.get(4).setSteals(away_player_list.get(4).getSteals() + 1);
+
+                                // handle animation
+                                right_player5.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue5.setAnimation(zoom_in);
+                                right_player_plus_blue5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue5.setVisibility(View.INVISIBLE);
+                                                right_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 9's blocks
                             else if (stat_index == 9) {
                                 away_player_list.get(4).setBlocks(away_player_list.get(4).getBlocks() + 1);
+
+                                // handle animation
+                                right_player5.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue5.setAnimation(zoom_in);
+                                right_player_plus_blue5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue5.setVisibility(View.INVISIBLE);
+                                                right_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
                             // update home player 9's fouls
                             else if (stat_index == 10) {
                                 away_player_list.get(4).setFouls(away_player_list.get(4).getFouls() + 1);
+
+                                // handle animation
+                                right_player5.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue5.setAnimation(zoom_in);
+                                right_player_plus_blue5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue5.setVisibility(View.INVISIBLE);
+                                                right_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             // update home player 9's turnovers
                             else if (stat_index == 11) {
                                 away_player_list.get(4).setTurnovers(away_player_list.get(4).getTurnovers() + 1);
+
+                                // handle animation
+                                right_player5.setVisibility(View.INVISIBLE);
+                                right_player_plus_blue5.setVisibility(View.VISIBLE);
+
+                                Animation zoom_in = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+                                final Animation zoom_out = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.stat_zoom_out);
+                                right_player_plus_blue5.setAnimation(zoom_in);
+                                right_player_plus_blue5.setAnimation(zoom_out);
+                                final int secondsDelayed = 1;
+                                final int waitForAnimation = 1;
+                                right_player_plus_blue5.startAnimation(zoom_in);
+                                new Handler().postDelayed(new Runnable() {
+                                    public void run() {
+                                        right_player_plus_blue5.startAnimation(zoom_out);
+                                        new Handler().postDelayed(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                Log.d("ANIMATION", "Animation done!");
+                                                right_player_plus_blue5.setVisibility(View.INVISIBLE);
+                                                right_player5.setVisibility(View.VISIBLE);
+                                                // final_view.setBackgroundDrawable(normalShape);
+                                            }
+                                        }, waitForAnimation * 220);
+
+                                    }
+                                }, secondsDelayed * 300);
                             }
 
                             break;

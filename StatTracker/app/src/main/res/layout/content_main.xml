@@ -48,6 +48,40 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
+                        <!-- plus animation image views -->
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_red1"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_red"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_green1"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_green"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_blue1"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_blue"
+                            />
+
+                        <!-- player image and cards -->
+
                         <ImageView
                             android:layout_width="75dp"
                             android:layout_height="75dp"
@@ -177,6 +211,40 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
+                        <!-- plus animation image views -->
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_red2"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_red"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_green2"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_green"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_blue2"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_blue"
+                            />
+
+                        <!-- player image and cards -->
+
                         <ImageView
                             android:layout_width="75dp"
                             android:layout_height="75dp"
@@ -305,6 +373,40 @@
                         android:id="@+id/left_card_player_top_right_layout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
+                        <!-- plus animation image views -->
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_red3"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_red"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_green3"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_green"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_blue3"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_blue"
+                            />
+
+                        <!-- player image and cards -->
 
                         <ImageView
                             android:layout_width="75dp"
@@ -452,6 +554,40 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
+                        <!-- plus animation image views -->
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_red4"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_red"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_green4"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_green"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_blue4"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_blue"
+                            />
+
+                        <!-- player image and cards -->
+
                         <ImageView
                             android:layout_width="75dp"
                             android:layout_height="75dp"
@@ -581,6 +717,40 @@
                         android:id="@+id/left_card_player_bot_right_layout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
+                        <!-- plus animation image views -->
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_red5"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_red"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_green5"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_green"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_blue5"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_blue"
+                            />
+
+                        <!-- player image and cards -->
 
                         <ImageView
                             android:layout_width="75dp"
@@ -802,6 +972,40 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
+                        <!-- plus animation image views -->
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_red6"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_red"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_green6"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_green"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_blue6"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_blue"
+                            />
+
+                        <!-- player image and cards -->
+
                         <ImageView
                             android:layout_width="75dp"
                             android:layout_height="75dp"
@@ -931,6 +1135,40 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
+                        <!-- plus animation image views -->
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_red7"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_red"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_green7"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_green"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_blue7"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_blue"
+                            />
+
+                        <!-- player image and cards -->
+
                         <ImageView
                             android:layout_width="75dp"
                             android:layout_height="75dp"
@@ -1059,6 +1297,40 @@
                         android:id="@+id/right_card_player_top_right_layout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
+                        <!-- plus animation image views -->
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_red8"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_red"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_green8"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_green"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_blue8"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_blue"
+                            />
+
+                        <!-- player image and cards -->
 
                         <ImageView
                             android:layout_width="75dp"
@@ -1206,6 +1478,40 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
+                        <!-- plus animation image views -->
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_red9"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_red"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_green9"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_green"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_blue9"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_blue"
+                            />
+
+                        <!-- player image and cards -->
+
                         <ImageView
                             android:layout_width="75dp"
                             android:layout_height="75dp"
@@ -1335,6 +1641,40 @@
                         android:id="@+id/right_card_player_bot_right_layout"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
+
+                        <!-- plus animation image views -->
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_red10"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_red"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_green10"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_green"
+                            />
+
+                        <ImageView
+                            android:layout_width="75dp"
+                            android:layout_height="75dp"
+                            android:id="@+id/plus_one_blue10"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible"
+                            android:src="@drawable/plus_one_blue"
+                            />
+
+                        <!-- player image and cards -->
 
                         <ImageView
                             android:layout_width="75dp"
