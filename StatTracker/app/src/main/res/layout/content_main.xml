@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     android:weightSum="2"
     android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:fitsSystemWindows="true"
     tools:context="com.statkeeperapp.stattracker.MainActivity">
 
     <LinearLayout
@@ -1464,9 +1462,6 @@
         android:layout_height="0dp"
         android:layout_weight="0.6"
         >
-
-
-
         <LinearLayout
             android:id="@+id/two_point_make"
             android:layout_width="135dp"
@@ -1701,7 +1696,7 @@
 
         </LinearLayout>
 
-        <!-- foul dragble layout -->
+        <!-- foul dragable layout -->
 
         <LinearLayout
             android:id="@+id/foul"

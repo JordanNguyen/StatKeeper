@@ -1,6 +1,9 @@
 package com.statkeeperapp.stattracker;
 
+import android.app.Activity;
 import android.content.ClipData;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -27,18 +30,23 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SubDialog.onAcceptButtonClickListener {
 
     TextView player1pts, player1reb, player1ast, player2pts, player2reb, player2ast, player3pts, player3reb, player3ast,
             player4pts, player4reb, player4ast, player5pts, player5reb, player5ast, player6pts, player6reb, player6ast,
     player7pts, player7reb, player7ast, player8pts, player8reb, player8ast, player9pts, player9reb, player9ast, player0pts, player0reb, player0ast;
+
+    TextView left_player_name1, left_player_name2, left_player_name3, left_player_name4, left_player_name5,  right_player_name1, right_player_name2,
+            right_player_name3, right_player_name4, right_player_name5;
 
     TextView score;
 
     Player home_player1, home_player2, home_player3, home_player4, home_player5, home_player6, home_player7, home_player8, home_player9, home_player10,
             away_player1,  away_player2,  away_player3,  away_player4,  away_player5, away_player6, away_player7, away_player8, away_player9, away_player10;
 
-    ArrayList<Player> player_list, home_player_list, away_player_list;
+    ArrayList<Player> home_player_list, away_player_list;
+
+    ImageView left_player1, left_player2, left_player3, left_player4, left_player5, right_player1, right_player2, right_player3, right_player4, right_player5;
 
     TextView two_point_make, three_point_make;
 
@@ -56,11 +64,11 @@ public class MainActivity extends AppCompatActivity {
         home_player3 = new Player("S. Curry", "http://www.spotrac.com/blog/wp-content/uploads/2013/05/gs-curry.png");
         home_player4 = new Player("D. Howard", "http://a3.espncdn.com/combiner/i?img=%2Fi%2Fheadshots%2Fnba%2Fplayers%2Ffull%2F2384.png");
         home_player5 = new Player("Y. Ming", "http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1722.png&w=350&h=254");
-        home_player6 = new Player("Y. Ming", "http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1722.png&w=350&h=254");
-        home_player7 = new Player("Y. Ming", "http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1722.png&w=350&h=254");
-        home_player8 = new Player("Y. Ming", "http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1722.png&w=350&h=254");
-        home_player9 = new Player("Y. Ming", "http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1722.png&w=350&h=254");
-        home_player10 = new Player("Y. Ming", "http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1722.png&w=350&h=254");
+        home_player6 = new Player("K. Irving", "http://forums.nba-live.com/dl_mod/thumbs/5645_CLE_Irving_Kyrie.png");
+        home_player7 = new Player("D. Rose", "http://www.nba-live.com/wp-content/uploads/2014/11/derrick_rose_headshot.png");
+        home_player8 = new Player("T. Duncan", "http://www.nba-live.com/wp-content/uploads/2012/10/3684_SAS_Duncan_Tim.png");
+        home_player9 = new Player("D. Cousins", "http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/4258.png&w=350&h=254");
+        home_player10 = new Player("Birdman", "http://a.espncdn.com/combiner/i?img=/i/headshots/nba/players/full/1135.png&amp;w=200&amp;h=145");
 
 
         away_player1 = new Player("T. Hollerer", "http://www.ieeevr.org/2017/img/tobias-hollerer.jpg");
@@ -73,19 +81,6 @@ public class MainActivity extends AppCompatActivity {
         away_player8 = new Player("P. Conrad", "https://pbs.twimg.com/profile_images/73630820/HeadShot.jpg");
         away_player9 = new Player("P. Conrad", "https://pbs.twimg.com/profile_images/73630820/HeadShot.jpg");
         away_player10 = new Player("P. Conrad", "https://pbs.twimg.com/profile_images/73630820/HeadShot.jpg");
-
-
-        player_list = new ArrayList<>();
-        player_list.add(home_player1);
-        player_list.add(home_player2);
-        player_list.add(home_player3);
-        player_list.add(home_player4);
-        player_list.add(home_player5);
-        player_list.add(away_player1);
-        player_list.add(away_player2);
-        player_list.add(away_player3);
-        player_list.add(away_player4);
-        player_list.add(away_player5);
 
         home_player_list = new ArrayList<>();
         home_player_list.add(home_player1);
@@ -111,6 +106,30 @@ public class MainActivity extends AppCompatActivity {
         away_player_list.add(away_player9);
         away_player_list.add(away_player10);
 
+        left_player_name1 = (TextView)findViewById(R.id.left_text_name1);
+        left_player_name2 = (TextView)findViewById(R.id.left_text_name2);
+        left_player_name3 = (TextView)findViewById(R.id.left_text_name3);
+        left_player_name4 = (TextView)findViewById(R.id.left_text_name4);
+        left_player_name5 = (TextView)findViewById(R.id.left_text_name5);
+        left_player_name1.setText(home_player_list.get(0).getName());
+        left_player_name2.setText(home_player_list.get(1).getName());
+        left_player_name3.setText(home_player_list.get(2).getName());
+        left_player_name4.setText(home_player_list.get(3).getName());
+        left_player_name5.setText(home_player_list.get(4).getName());
+
+
+        right_player_name1 = (TextView)findViewById(R.id.right_text_name1);
+        right_player_name2 = (TextView)findViewById(R.id.right_text_name2);
+        right_player_name3 = (TextView)findViewById(R.id.right_text_name3);
+        right_player_name4 = (TextView)findViewById(R.id.right_text_name4);
+        right_player_name5 = (TextView)findViewById(R.id.right_text_name5);
+
+        right_player_name1.setText(away_player_list.get(0).getName());
+        right_player_name2.setText(away_player_list.get(1).getName());
+        right_player_name3.setText(away_player_list.get(2).getName());
+        right_player_name4.setText(away_player_list.get(3).getName());
+        right_player_name5.setText(away_player_list.get(4).getName());
+
 
         findViewById(R.id.two_point_make_text).setOnTouchListener(new MyTouchListener(0));
         findViewById(R.id.three_point_make_text).setOnTouchListener(new MyTouchListener(1));
@@ -132,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         left_layout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(home_player1);
+                showDialog(home_player_list.get(0));
             }
         });
 
@@ -141,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         left_layout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(home_player2);
+                showDialog(home_player_list.get(1));
             }
         });
         RelativeLayout left_layout3 = (RelativeLayout)findViewById(R.id.left_card_player_top_right_layout);
@@ -149,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
         left_layout3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(home_player3);
+                showDialog(home_player_list.get(2));
             }
         });
         RelativeLayout left_layout4 = (RelativeLayout)findViewById(R.id.left_card_player_bot_left_layout);
@@ -157,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
         left_layout4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(home_player4);
+                showDialog(home_player_list.get(3));
             }
         });
         RelativeLayout left_layout5 = (RelativeLayout)findViewById(R.id.left_card_player_bot_right_layout);
@@ -165,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         left_layout5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(home_player5);
+                showDialog(home_player_list.get(4));
             }
         });
 
@@ -174,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
         right_layout1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(away_player1);
+                showDialog(away_player_list.get(0));
             }
         });
         RelativeLayout right_layout2 = (RelativeLayout)findViewById(R.id.right_card_player_top_center_layout);
@@ -182,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         right_layout2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(away_player2);
+                showDialog(away_player_list.get(1));
             }
         });
         RelativeLayout right_layout3 = (RelativeLayout)findViewById(R.id.right_card_player_top_right_layout);
@@ -190,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
         right_layout3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(away_player3);
+                showDialog(away_player_list.get(2));
             }
         });
         RelativeLayout right_layout4 = (RelativeLayout)findViewById(R.id.right_card_player_bot_left_layout);
@@ -198,7 +217,7 @@ public class MainActivity extends AppCompatActivity {
         right_layout4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(away_player4);
+                showDialog(away_player_list.get(3));
             }
         });
         RelativeLayout right_layout5 = (RelativeLayout)findViewById(R.id.right_card_player_bot_right_layout);
@@ -206,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
         right_layout5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(away_player5);
+                showDialog(away_player_list.get(4));
             }
         });
 
@@ -243,33 +262,35 @@ public class MainActivity extends AppCompatActivity {
 
         score = (TextView)findViewById(R.id.game_score);
 
-        ImageView left_player1 = (ImageView) findViewById(R.id.left_image_player_top_left);
+
+
+        left_player1 = (ImageView) findViewById(R.id.left_image_player_top_left);
         Picasso.with(getApplicationContext()).load(home_player1.getImage_url()).transform(new CircleTransform()).into(left_player1);
-        ImageView left_player2 = (ImageView) findViewById(R.id.left_image_player_top_center);
+        left_player2 = (ImageView) findViewById(R.id.left_image_player_top_center);
         Picasso.with(getApplicationContext()).load(home_player2.getImage_url()).transform(new CircleTransform()).into(left_player2);
-        ImageView left_player3 = (ImageView) findViewById(R.id.left_image_player_top_right);
+        left_player3 = (ImageView) findViewById(R.id.left_image_player_top_right);
         Picasso.with(getApplicationContext()).load(home_player3.getImage_url()).transform(new CircleTransform()).into(left_player3);
-        ImageView left_player4 = (ImageView) findViewById(R.id.left_image_player_bot_left);
+        left_player4 = (ImageView) findViewById(R.id.left_image_player_bot_left);
         Picasso.with(getApplicationContext()).load(home_player4.getImage_url()).transform(new CircleTransform()).into(left_player4);
-        ImageView left_player5 = (ImageView) findViewById(R.id.left_image_player_bot_right);
+        left_player5 = (ImageView) findViewById(R.id.left_image_player_bot_right);
         Picasso.with(getApplicationContext()).load(home_player5.getImage_url()).transform(new CircleTransform()).into(left_player5);
 
-        ImageView right_player1 = (ImageView) findViewById(R.id.right_image_player_top_left);
+        right_player1 = (ImageView) findViewById(R.id.right_image_player_top_left);
         Picasso.with(getApplicationContext()).load(away_player1.getImage_url()).transform(new CircleTransform()).into(right_player1);
-        ImageView right_player2 = (ImageView) findViewById(R.id.right_image_player_top_center);
+        right_player2 = (ImageView) findViewById(R.id.right_image_player_top_center);
         Picasso.with(getApplicationContext()).load(away_player2.getImage_url()).transform(new CircleTransform()).into(right_player2);
-        ImageView right_player3 = (ImageView) findViewById(R.id.right_image_player_top_right);
+        right_player3 = (ImageView) findViewById(R.id.right_image_player_top_right);
         Picasso.with(getApplicationContext()).load(away_player3.getImage_url()).transform(new CircleTransform()).into(right_player3);
-        ImageView right_player4 = (ImageView) findViewById(R.id.right_image_player_bot_left);
+        right_player4 = (ImageView) findViewById(R.id.right_image_player_bot_left);
         Picasso.with(getApplicationContext()).load(away_player4.getImage_url()).transform(new CircleTransform()).into(right_player4);
-        ImageView right_player5 = (ImageView) findViewById(R.id.right_image_player_bot_right);
+        right_player5 = (ImageView) findViewById(R.id.right_image_player_bot_right);
         Picasso.with(getApplicationContext()).load(away_player5.getImage_url()).transform(new CircleTransform()).into(right_player5);
 
         ImageView left_sub = (ImageView) findViewById(R.id.left_substitute);
         left_sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showSubDialog(home_player_list);
+                showSubDialog(home_player_list, "home");
             }
         });
 
@@ -277,28 +298,95 @@ public class MainActivity extends AppCompatActivity {
         right_sub.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showSubDialog(away_player_list);
+                showSubDialog(away_player_list, "away");
             }
         });
 
+    }
 
+    public void onAcceptButtonClick() {
+        Log.d("ACCEPT", "on Accept button click called!");
+
+        // update names
+        left_player_name1.setText(home_player_list.get(0).getName());
+        left_player_name2.setText(home_player_list.get(1).getName());
+        left_player_name3.setText(home_player_list.get(2).getName());
+        left_player_name4.setText(home_player_list.get(3).getName());
+        left_player_name5.setText(home_player_list.get(4).getName());
+
+        right_player_name1.setText(away_player_list.get(0).getName());
+        right_player_name2.setText(away_player_list.get(1).getName());
+        right_player_name3.setText(away_player_list.get(2).getName());
+        right_player_name4.setText(away_player_list.get(3).getName());
+        right_player_name5.setText(away_player_list.get(4).getName());
+
+        // update images
+        Picasso.with(getApplicationContext()).load(home_player_list.get(0).getImage_url()).transform(new CircleTransform()).into(left_player1);
+        Picasso.with(getApplicationContext()).load(home_player_list.get(1).getImage_url()).transform(new CircleTransform()).into(left_player2);
+        Picasso.with(getApplicationContext()).load(home_player_list.get(2).getImage_url()).transform(new CircleTransform()).into(left_player3);
+        Picasso.with(getApplicationContext()).load(home_player_list.get(3).getImage_url()).transform(new CircleTransform()).into(left_player4);
+        Picasso.with(getApplicationContext()).load(home_player_list.get(4).getImage_url()).transform(new CircleTransform()).into(left_player5);
+
+        Picasso.with(getApplicationContext()).load(away_player_list.get(0).getImage_url()).transform(new CircleTransform()).into(right_player1);
+        Picasso.with(getApplicationContext()).load(away_player_list.get(1).getImage_url()).transform(new CircleTransform()).into(right_player2);
+        Picasso.with(getApplicationContext()).load(away_player_list.get(2).getImage_url()).transform(new CircleTransform()).into(right_player3);
+        Picasso.with(getApplicationContext()).load(away_player_list.get(3).getImage_url()).transform(new CircleTransform()).into(right_player4);
+        Picasso.with(getApplicationContext()).load(away_player_list.get(4).getImage_url()).transform(new CircleTransform()).into(right_player5);
+
+        // update points
+        player0pts.setText("" + home_player_list.get(0).getPoints());
+        player1pts.setText("" + home_player_list.get(1).getPoints());
+        player2pts.setText("" + home_player_list.get(2).getPoints());
+        player3pts.setText("" + home_player_list.get(3).getPoints());
+        player4pts.setText("" + home_player_list.get(4).getPoints());
+
+        player5pts.setText("" + away_player_list.get(0).getPoints());
+        player6pts.setText("" + away_player_list.get(1).getPoints());
+        player7pts.setText("" + away_player_list.get(2).getPoints());
+        player8pts.setText("" + away_player_list.get(3).getPoints());
+        player9pts.setText("" + away_player_list.get(4).getPoints());
+
+        // update rebounds
+        player0reb.setText("" + home_player_list.get(0).getRebounds());
+        player1reb.setText("" + home_player_list.get(1).getRebounds());
+        player2reb.setText("" + home_player_list.get(2).getRebounds());
+        player3reb.setText("" + home_player_list.get(3).getRebounds());
+        player4reb.setText("" + home_player_list.get(4).getRebounds());
+
+        player5reb.setText("" + away_player_list.get(0).getRebounds());
+        player6reb.setText("" + away_player_list.get(1).getRebounds());
+        player7reb.setText("" + away_player_list.get(2).getRebounds());
+        player8reb.setText("" + away_player_list.get(3).getRebounds());
+        player9reb.setText("" + away_player_list.get(4).getRebounds());
+
+        // update assists
+        player0ast.setText("" + home_player_list.get(0).getAssists());
+        player1ast.setText("" + home_player_list.get(1).getAssists());
+        player2ast.setText("" + home_player_list.get(2).getAssists());
+        player3ast.setText("" + home_player_list.get(3).getAssists());
+        player4ast.setText("" + home_player_list.get(4).getAssists());
+
+        player5ast.setText("" + away_player_list.get(0).getAssists());
+        player6ast.setText("" + away_player_list.get(1).getAssists());
+        player7ast.setText("" + away_player_list.get(2).getAssists());
+        player8ast.setText("" + away_player_list.get(3).getAssists());
+        player9ast.setText("" + away_player_list.get(4).getAssists());
 
     }
 
-    private void showSubDialog(ArrayList<Player> p) {
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        DialogFragment dialogFragment = SubDialog.newInstance(p);
-        dialogFragment.show(ft, "sub_dialog");
+    private void showSubDialog(ArrayList<Player> p, String team) {
+        android.app.DialogFragment dialogFragment = SubDialog.newInstance(p, team);
+        //dialogFragment.setTargetFragment(dialogFragment, 1);
+        dialogFragment.show(getFragmentManager(), "sub_dialog");
     }
 
 
     private void showDialog(Player p) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         DialogFragment dialogFragment = DetailDialog.newInstance(p);
+        //dialogFragment.setTargetFragment(dialogFragment, 1);
         dialogFragment.show(ft, "dialog");
     }
-
-
 
     private final class MyTouchListener implements View.OnTouchListener {
 
@@ -397,8 +485,8 @@ public class MainActivity extends AppCompatActivity {
                                 // update game score
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(0).setFg_made(player_list.get(0).getFg_made() + 1);
-                                player_list.get(0).setPoints(player_list.get(0).getPoints() + 2);
+                                home_player_list.get(0).setFg_made(home_player_list.get(0).getFg_made() + 1);
+                                home_player_list.get(0).setPoints(home_player_list.get(0).getPoints() + 2);
                             }
 
                             // update home player 0's three point made and points
@@ -412,8 +500,9 @@ public class MainActivity extends AppCompatActivity {
                                 home_score += 3;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(0).setThree_made(player_list.get(0).getThree_made() + 1);
-                                player_list.get(0).setPoints(player_list.get(0).getPoints() + 3);
+                                home_player_list.get(0).setThree_made(home_player_list.get(0).getThree_made() + 1);
+                                home_player_list.get(0).setFg_made(home_player_list.get(0).getFg_made() + 1);
+                                home_player_list.get(0).setPoints(home_player_list.get(0).getPoints() + 3);
                             }
 
                             // update home player 0's ft made and points
@@ -427,23 +516,24 @@ public class MainActivity extends AppCompatActivity {
                                 home_score += 1;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(0).setFt_made(player_list.get(0).getFt_made() + 1);
-                                player_list.get(0).setPoints(player_list.get(0).getPoints() + 1);
+                                home_player_list.get(0).setFt_made(home_player_list.get(0).getFt_made() + 1);
+                                home_player_list.get(0).setPoints(home_player_list.get(0).getPoints() + 1);
                             }
 
                             // update home player 0's fg misses
                             else if(stat_index == 3) {
-                                player_list.get(0).setFg_miss(player_list.get(0).getFg_miss() + 1);
+                                home_player_list.get(0).setFg_miss(home_player_list.get(0).getFg_miss() + 1);
                             }
 
                             // update home player 0's three point misses
                             else if (stat_index == 4) {
-                                player_list.get(0).setThree_miss(player_list.get(0).getThree_miss() + 1);
+                                home_player_list.get(0).setThree_miss(home_player_list.get(0).getThree_miss() + 1);
+                                home_player_list.get(0).setFg_miss(home_player_list.get(0).getFg_miss() + 1);
                             }
 
                             // update home player 0's missed fts
                             else if (stat_index == 5) {
-                                player_list.get(0).setFt_miss(player_list.get(0).getFt_miss() + 1);
+                                home_player_list.get(0).setFt_miss(home_player_list.get(0).getFt_miss() + 1);
                             }
 
                             // update home player 0's rebounds
@@ -453,7 +543,7 @@ public class MainActivity extends AppCompatActivity {
                                 int new_reb = reb + 1;
                                 player0reb.setText("" + new_reb);
 
-                                player_list.get(0).setRebounds(player_list.get(0).getRebounds() + 1);
+                                home_player_list.get(0).setRebounds(home_player_list.get(0).getRebounds() + 1);
                             }
 
                             // update home player 0's assists
@@ -463,26 +553,26 @@ public class MainActivity extends AppCompatActivity {
                                 int new_ast = ast + 1;
                                 player0ast.setText("" + new_ast);
 
-                                player_list.get(0).setAssists(player_list.get(0).getAssists() + 1);
+                                home_player_list.get(0).setAssists(home_player_list.get(0).getAssists() + 1);
                             }
 
                             // update home player 0's steals
                             else if (stat_index == 8) {
-                                player_list.get(0).setSteals(player_list.get(0).getSteals() + 1);
+                                home_player_list.get(0).setSteals(home_player_list.get(0).getSteals() + 1);
                             }
 
                             // update home player 0's blocks
                             else if (stat_index == 9) {
-                                player_list.get(0).setBlocks(player_list.get(0).getBlocks() + 1);
+                                home_player_list.get(0).setBlocks(home_player_list.get(0).getBlocks() + 1);
                             }
                             // update home player 0's fouls
                             else if (stat_index == 10) {
-                                player_list.get(0).setFouls(player_list.get(0).getFouls() + 1);
+                                home_player_list.get(0).setFouls(home_player_list.get(0).getFouls() + 1);
                             }
 
                             // update home player 0's turnovers
                             else if (stat_index == 11) {
-                                player_list.get(0).setTurnovers(player_list.get(0).getTurnovers() + 1);
+                                home_player_list.get(0).setTurnovers(home_player_list.get(0).getTurnovers() + 1);
                             }
 
                             break;
@@ -502,8 +592,8 @@ public class MainActivity extends AppCompatActivity {
                                 // update game score
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(1).setFg_made(player_list.get(1).getFg_made() + 1);
-                                player_list.get(1).setPoints(player_list.get(1).getPoints() + 2);
+                                home_player_list.get(1).setFg_made(home_player_list.get(1).getFg_made() + 1);
+                                home_player_list.get(1).setPoints(home_player_list.get(1).getPoints() + 2);
 
                             }
 
@@ -518,8 +608,9 @@ public class MainActivity extends AppCompatActivity {
                                 home_score += 3;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(1).setThree_made(player_list.get(1).getThree_made() + 1);
-                                player_list.get(1).setPoints(player_list.get(1).getPoints() + 3);
+                                home_player_list.get(1).setFg_made(home_player_list.get(1).getFg_made() + 1);
+                                home_player_list.get(1).setThree_made(home_player_list.get(1).getThree_made() + 1);
+                                home_player_list.get(1).setPoints(home_player_list.get(1).getPoints() + 3);
                             }
 
                             // update home player 1's ft made and points
@@ -533,23 +624,24 @@ public class MainActivity extends AppCompatActivity {
                                 home_score += 1;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(1).setFt_made(player_list.get(1).getFt_made() + 1);
-                                player_list.get(1).setPoints(player_list.get(1).getPoints() + 1);
+                                home_player_list.get(1).setFt_made(home_player_list.get(1).getFt_made() + 1);
+                                home_player_list.get(1).setPoints(home_player_list.get(1).getPoints() + 1);
                             }
 
                             // update home player 1's fg misses
                             else if(stat_index == 3) {
-                                player_list.get(1).setFg_miss(player_list.get(1).getFg_miss() + 1);
+                                home_player_list.get(1).setFg_miss(home_player_list.get(1).getFg_miss() + 1);
                             }
 
                             // update home player 1's three point misses
                             else if (stat_index == 4) {
-                                player_list.get(1).setThree_miss(player_list.get(1).getThree_miss() + 1);
+                                home_player_list.get(1).setFg_miss(home_player_list.get(1).getFg_miss() + 1);
+                                home_player_list.get(1).setThree_miss(home_player_list.get(1).getThree_miss() + 1);
                             }
 
                             // update home player 1's missed fts
                             else if (stat_index == 5) {
-                                player_list.get(1).setFt_miss(player_list.get(1).getFt_miss() + 1);
+                                home_player_list.get(1).setFt_miss(home_player_list.get(1).getFt_miss() + 1);
                             }
 
                             // update home player 1's rebounds
@@ -559,7 +651,7 @@ public class MainActivity extends AppCompatActivity {
                                 int new_reb = reb + 1;
                                 player1reb.setText("" + new_reb);
 
-                                player_list.get(1).setRebounds(player_list.get(1).getRebounds() + 1);
+                                home_player_list.get(1).setRebounds(home_player_list.get(1).getRebounds() + 1);
                             }
 
                             // update home player 1's assists
@@ -569,26 +661,26 @@ public class MainActivity extends AppCompatActivity {
                                 int new_ast = ast + 1;
                                 player1ast.setText("" + new_ast);
 
-                                player_list.get(1).setAssists(player_list.get(1).getAssists() + 1);
+                                home_player_list.get(1).setAssists(home_player_list.get(1).getAssists() + 1);
                             }
 
                             // update home player 1's steals
                             else if (stat_index == 8) {
-                                player_list.get(1).setSteals(player_list.get(1).getSteals() + 1);
+                                home_player_list.get(1).setSteals(home_player_list.get(1).getSteals() + 1);
                             }
 
                             // update home player 1's blocks
                             else if (stat_index == 9) {
-                                player_list.get(1).setBlocks(player_list.get(1).getBlocks() + 1);
+                                home_player_list.get(1).setBlocks(home_player_list.get(1).getBlocks() + 1);
                             }
                             // update home player 1's fouls
                             else if (stat_index == 10) {
-                                player_list.get(1).setFouls(player_list.get(1).getFouls() + 1);
+                                home_player_list.get(1).setFouls(home_player_list.get(1).getFouls() + 1);
                             }
 
                             // update home player 1's turnovers
                             else if (stat_index == 11) {
-                                player_list.get(1).setTurnovers(player_list.get(1).getTurnovers() + 1);
+                                home_player_list.get(1).setTurnovers(home_player_list.get(1).getTurnovers() + 1);
                             }
 
                             break;
@@ -606,8 +698,8 @@ public class MainActivity extends AppCompatActivity {
                                 // update game score
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(2).setFg_made(player_list.get(2).getFg_made() + 1);
-                                player_list.get(2).setPoints(player_list.get(2).getPoints() + 2);
+                                home_player_list.get(2).setFg_made(home_player_list.get(2).getFg_made() + 1);
+                                home_player_list.get(2).setPoints(home_player_list.get(2).getPoints() + 2);
 
                             }
 
@@ -622,8 +714,9 @@ public class MainActivity extends AppCompatActivity {
                                 home_score += 3;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(2).setThree_made(player_list.get(2).getThree_made() + 1);
-                                player_list.get(2).setPoints(player_list.get(2).getPoints() + 3);
+                                home_player_list.get(2).setThree_made(home_player_list.get(2).getThree_made() + 1);
+                                home_player_list.get(2).setPoints(home_player_list.get(2).getPoints() + 3);
+                                home_player_list.get(2).setFg_made(home_player_list.get(2).getFg_made() + 1);
                             }
 
                             // update home player 2's ft made and points
@@ -637,23 +730,24 @@ public class MainActivity extends AppCompatActivity {
                                 home_score += 1;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(2).setFt_made(player_list.get(2).getFt_made() + 1);
-                                player_list.get(2).setPoints(player_list.get(2).getPoints() + 1);
+                                home_player_list.get(2).setFt_made(home_player_list.get(2).getFt_made() + 1);
+                                home_player_list.get(2).setPoints(home_player_list.get(2).getPoints() + 1);
                             }
 
                             // update home player 2's fg misses
                             else if(stat_index == 3) {
-                                player_list.get(2).setFg_miss(player_list.get(2).getFg_miss() + 1);
+                                home_player_list.get(2).setFg_miss(home_player_list.get(2).getFg_miss() + 1);
                             }
 
                             // update home player 2's three point misses
                             else if (stat_index == 4) {
-                                player_list.get(2).setThree_miss(player_list.get(2).getThree_miss() + 1);
+                                home_player_list.get(2).setFg_miss(home_player_list.get(2).getFg_miss() + 1);
+                                home_player_list.get(2).setThree_miss(home_player_list.get(2).getThree_miss() + 1);
                             }
 
                             // update home player 2's missed fts
                             else if (stat_index == 5) {
-                                player_list.get(2).setFt_miss(player_list.get(2).getFt_miss() + 1);
+                                home_player_list.get(2).setFt_miss(home_player_list.get(2).getFt_miss() + 1);
                             }
 
                             // update home player 2's rebounds
@@ -663,7 +757,7 @@ public class MainActivity extends AppCompatActivity {
                                 int new_reb = reb + 1;
                                 player2reb.setText("" + new_reb);
 
-                                player_list.get(2).setRebounds(player_list.get(2).getRebounds() + 1);
+                                home_player_list.get(2).setRebounds(home_player_list.get(2).getRebounds() + 1);
                             }
 
                             // update home player 2's assists
@@ -673,26 +767,26 @@ public class MainActivity extends AppCompatActivity {
                                 int new_ast = ast + 1;
                                 player2ast.setText("" + new_ast);
 
-                                player_list.get(2).setAssists(player_list.get(2).getAssists() + 1);
+                                home_player_list.get(2).setAssists(home_player_list.get(2).getAssists() + 1);
                             }
 
                             // update home player 2's steals
                             else if (stat_index == 8) {
-                                player_list.get(2).setSteals(player_list.get(2).getSteals() + 1);
+                                home_player_list.get(2).setSteals(home_player_list.get(2).getSteals() + 1);
                             }
 
                             // update home player 2's blocks
                             else if (stat_index == 9) {
-                                player_list.get(2).setBlocks(player_list.get(2).getBlocks() + 1);
+                                home_player_list.get(2).setBlocks(home_player_list.get(2).getBlocks() + 1);
                             }
                             // update home player 2's fouls
                             else if (stat_index == 10) {
-                                player_list.get(2).setFouls(player_list.get(2).getFouls() + 1);
+                                home_player_list.get(2).setFouls(home_player_list.get(2).getFouls() + 1);
                             }
 
                             // update home player 2's turnovers
                             else if (stat_index == 11) {
-                                player_list.get(2).setTurnovers(player_list.get(2).getTurnovers() + 1);
+                                home_player_list.get(2).setTurnovers(home_player_list.get(2).getTurnovers() + 1);
                             }
 
                             break;
@@ -711,8 +805,8 @@ public class MainActivity extends AppCompatActivity {
                                 // update game score
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(3).setFg_made(player_list.get(3).getFg_made() + 1);
-                                player_list.get(3).setPoints(player_list.get(3).getPoints() + 2);
+                                home_player_list.get(3).setFg_made(home_player_list.get(3).getFg_made() + 1);
+                                home_player_list.get(3).setPoints(home_player_list.get(3).getPoints() + 2);
 
                             }
 
@@ -727,8 +821,9 @@ public class MainActivity extends AppCompatActivity {
                                 home_score += 3;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(3).setThree_made(player_list.get(3).getThree_made() + 1);
-                                player_list.get(3).setPoints(player_list.get(3).getPoints() + 3);
+                                home_player_list.get(3).setThree_made(home_player_list.get(3).getThree_made() + 1);
+                                home_player_list.get(3).setPoints(home_player_list.get(3).getPoints() + 3);
+                                home_player_list.get(3).setFg_made(home_player_list.get(3).getFg_made() + 1);
                             }
 
                             // update home player 3's ft made and points
@@ -742,23 +837,24 @@ public class MainActivity extends AppCompatActivity {
                                 home_score += 1;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(3).setFt_made(player_list.get(3).getFt_made() + 1);
-                                player_list.get(3).setPoints(player_list.get(3).getPoints() + 1);
+                                home_player_list.get(3).setFt_made(home_player_list.get(3).getFt_made() + 1);
+                                home_player_list.get(3).setPoints(home_player_list.get(3).getPoints() + 1);
                             }
 
                             // update home player 3's fg misses
                             else if(stat_index == 3) {
-                                player_list.get(3).setFg_miss(player_list.get(3).getFg_miss() + 1);
+                                home_player_list.get(3).setFg_miss(home_player_list.get(3).getFg_miss() + 1);
                             }
 
                             // update home player 3's three point misses
                             else if (stat_index == 4) {
-                                player_list.get(3).setThree_miss(player_list.get(3).getThree_miss() + 1);
+                                home_player_list.get(3).setFg_miss(home_player_list.get(3).getFg_miss() + 1);
+                                home_player_list.get(3).setThree_miss(home_player_list.get(3).getThree_miss() + 1);
                             }
 
                             // update home player 3's missed fts
                             else if (stat_index == 5) {
-                                player_list.get(3).setFt_miss(player_list.get(3).getFt_miss() + 1);
+                                home_player_list.get(3).setFt_miss(home_player_list.get(3).getFt_miss() + 1);
                             }
 
                             // update home player 3's rebounds
@@ -768,7 +864,7 @@ public class MainActivity extends AppCompatActivity {
                                 int new_reb = reb + 1;
                                 player3reb.setText("" + new_reb);
 
-                                player_list.get(3).setRebounds(player_list.get(3).getRebounds() + 1);
+                                home_player_list.get(3).setRebounds(home_player_list.get(3).getRebounds() + 1);
                             }
 
                             // update home player 3's assists
@@ -778,26 +874,26 @@ public class MainActivity extends AppCompatActivity {
                                 int new_ast = ast + 1;
                                 player3ast.setText("" + new_ast);
 
-                                player_list.get(3).setAssists(player_list.get(3).getAssists() + 1);
+                                home_player_list.get(3).setAssists(home_player_list.get(3).getAssists() + 1);
                             }
 
                             // update home player 3's steals
                             else if (stat_index == 8) {
-                                player_list.get(3).setSteals(player_list.get(3).getSteals() + 1);
+                                home_player_list.get(3).setSteals(home_player_list.get(3).getSteals() + 1);
                             }
 
                             // update home player 3's blocks
                             else if (stat_index == 9) {
-                                player_list.get(3).setBlocks(player_list.get(3).getBlocks() + 1);
+                                home_player_list.get(3).setBlocks(home_player_list.get(3).getBlocks() + 1);
                             }
                             // update home player 3's fouls
                             else if (stat_index == 10) {
-                                player_list.get(3).setFouls(player_list.get(3).getFouls() + 1);
+                                home_player_list.get(3).setFouls(home_player_list.get(3).getFouls() + 1);
                             }
 
                             // update home player 3's turnovers
                             else if (stat_index == 11) {
-                                player_list.get(3).setTurnovers(player_list.get(3).getTurnovers() + 1);
+                                home_player_list.get(3).setTurnovers(home_player_list.get(3).getTurnovers() + 1);
                             }
 
                             break;
@@ -816,8 +912,8 @@ public class MainActivity extends AppCompatActivity {
                                 // update game score
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(4).setFg_made(player_list.get(4).getFg_made() + 1);
-                                player_list.get(4).setPoints(player_list.get(4).getPoints() + 2);
+                                home_player_list.get(4).setFg_made(home_player_list.get(4).getFg_made() + 1);
+                                home_player_list.get(4).setPoints(home_player_list.get(4).getPoints() + 2);
 
                             }
 
@@ -832,8 +928,9 @@ public class MainActivity extends AppCompatActivity {
                                 home_score += 3;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(4).setThree_made(player_list.get(4).getThree_made() + 1);
-                                player_list.get(4).setPoints(player_list.get(4).getPoints() + 3);
+                                home_player_list.get(4).setThree_made(home_player_list.get(4).getThree_made() + 1);
+                                home_player_list.get(4).setPoints(home_player_list.get(4).getPoints() + 3);
+                                home_player_list.get(4).setFg_made(home_player_list.get(4).getFg_made() + 1);
                             }
 
                             // update home player 4's ft made and points
@@ -847,23 +944,24 @@ public class MainActivity extends AppCompatActivity {
                                 home_score += 1;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(4).setFt_made(player_list.get(4).getFt_made() + 1);
-                                player_list.get(4).setPoints(player_list.get(4).getPoints() + 1);
+                                home_player_list.get(4).setFt_made(home_player_list.get(4).getFt_made() + 1);
+                                home_player_list.get(4).setPoints(home_player_list.get(4).getPoints() + 1);
                             }
 
                             // update home player 4's fg misses
                             else if(stat_index == 3) {
-                                player_list.get(4).setFg_miss(player_list.get(4).getFg_miss() + 1);
+                                home_player_list.get(4).setFg_miss(home_player_list.get(4).getFg_miss() + 1);
                             }
 
                             // update home player 4's three point misses
                             else if (stat_index == 4) {
-                                player_list.get(4).setThree_miss(player_list.get(4).getThree_miss() + 1);
+                                home_player_list.get(4).setFg_miss(home_player_list.get(4).getFg_miss() + 1);
+                                home_player_list.get(4).setThree_miss(home_player_list.get(4).getThree_miss() + 1);
                             }
 
                             // update home player 4's missed fts
                             else if (stat_index == 5) {
-                                player_list.get(4).setFt_miss(player_list.get(4).getFt_miss() + 1);
+                                home_player_list.get(4).setFt_miss(home_player_list.get(4).getFt_miss() + 1);
                             }
 
                             // update home player 4's rebounds
@@ -873,7 +971,7 @@ public class MainActivity extends AppCompatActivity {
                                 int new_reb = reb + 1;
                                 player4reb.setText("" + new_reb);
 
-                                player_list.get(4).setRebounds(player_list.get(4).getRebounds() + 1);
+                                home_player_list.get(4).setRebounds(home_player_list.get(4).getRebounds() + 1);
                             }
 
                             // update home player 4's assists
@@ -883,26 +981,26 @@ public class MainActivity extends AppCompatActivity {
                                 int new_ast = ast + 1;
                                 player4ast.setText("" + new_ast);
 
-                                player_list.get(4).setAssists(player_list.get(4).getAssists() + 1);
+                                home_player_list.get(4).setAssists(home_player_list.get(4).getAssists() + 1);
                             }
 
                             // update home player 4's steals
                             else if (stat_index == 8) {
-                                player_list.get(4).setSteals(player_list.get(4).getSteals() + 1);
+                                home_player_list.get(4).setSteals(home_player_list.get(4).getSteals() + 1);
                             }
 
                             // update home player 4's blocks
                             else if (stat_index == 9) {
-                                player_list.get(4).setBlocks(player_list.get(4).getBlocks() + 1);
+                                home_player_list.get(4).setBlocks(home_player_list.get(4).getBlocks() + 1);
                             }
                             // update home player 4's fouls
                             else if (stat_index == 10) {
-                                player_list.get(4).setFouls(player_list.get(4).getFouls() + 1);
+                                home_player_list.get(4).setFouls(home_player_list.get(4).getFouls() + 1);
                             }
 
                             // update home player 4's turnovers
                             else if (stat_index == 11) {
-                                player_list.get(4).setTurnovers(player_list.get(4).getTurnovers() + 1);
+                                home_player_list.get(4).setTurnovers(home_player_list.get(4).getTurnovers() + 1);
                             }
 
                             break;
@@ -918,13 +1016,13 @@ public class MainActivity extends AppCompatActivity {
                                 int pts = Integer.parseInt(temp);
                                 int new_pts = pts + 2;
                                 player5pts.setText("" + new_pts);
-                                home_score += 2;
+                                away_score += 2;
 
                                 // update game score
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(5).setFg_made(player_list.get(5).getFg_made() + 1);
-                                player_list.get(5).setPoints(player_list.get(5).getPoints() + 2);
+                                away_player_list.get(5).setFg_made(away_player_list.get(5).getFg_made() + 1);
+                                away_player_list.get(5).setPoints(away_player_list.get(5).getPoints() + 2);
 
                             }
 
@@ -936,11 +1034,12 @@ public class MainActivity extends AppCompatActivity {
                                 player5pts.setText("" + new_pts);
 
                                 // update game score
-                                home_score += 3;
+                                away_score += 3;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(5).setThree_made(player_list.get(5).getThree_made() + 1);
-                                player_list.get(5).setPoints(player_list.get(5).getPoints() + 3);
+                                away_player_list.get(5).setFg_made(away_player_list.get(5).getFg_made() + 1);
+                                away_player_list.get(5).setThree_made(away_player_list.get(5).getThree_made() + 1);
+                                away_player_list.get(5).setPoints(away_player_list.get(5).getPoints() + 3);
                             }
 
                             // update home player 5's ft made and points
@@ -951,26 +1050,27 @@ public class MainActivity extends AppCompatActivity {
                                 player5pts.setText("" + new_pts);
 
                                 // update game score
-                                home_score += 1;
+                                away_score += 1;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(5).setFt_made(player_list.get(5).getFt_made() + 1);
-                                player_list.get(5).setPoints(player_list.get(5).getPoints() + 1);
+                                away_player_list.get(5).setFt_made(away_player_list.get(5).getFt_made() + 1);
+                                away_player_list.get(5).setPoints(away_player_list.get(5).getPoints() + 1);
                             }
 
                             // update home player 5's fg misses
                             else if(stat_index == 3) {
-                                player_list.get(5).setFg_miss(player_list.get(5).getFg_miss() + 1);
+                                away_player_list.get(5).setFg_miss(away_player_list.get(5).getFg_miss() + 1);
                             }
 
                             // update home player 5's three point misses
                             else if (stat_index == 4) {
-                                player_list.get(5).setThree_miss(player_list.get(5).getThree_miss() + 1);
+                                away_player_list.get(5).setFg_miss(away_player_list.get(5).getFg_miss() + 1);
+                                away_player_list.get(5).setThree_miss(away_player_list.get(5).getThree_miss() + 1);
                             }
 
                             // update home player 5's missed fts
                             else if (stat_index == 5) {
-                                player_list.get(5).setFt_miss(player_list.get(5).getFt_miss() + 1);
+                                away_player_list.get(5).setFt_miss(away_player_list.get(5).getFt_miss() + 1);
                             }
 
                             // update home player 5's rebounds
@@ -980,7 +1080,7 @@ public class MainActivity extends AppCompatActivity {
                                 int new_reb = reb + 1;
                                 player5reb.setText("" + new_reb);
 
-                                player_list.get(5).setRebounds(player_list.get(5).getRebounds() + 1);
+                                away_player_list.get(5).setRebounds(away_player_list.get(5).getRebounds() + 1);
                             }
 
                             // update home player 5's assists
@@ -990,26 +1090,26 @@ public class MainActivity extends AppCompatActivity {
                                 int new_ast = ast + 1;
                                 player5ast.setText("" + new_ast);
 
-                                player_list.get(5).setAssists(player_list.get(5).getAssists() + 1);
+                                away_player_list.get(5).setAssists(away_player_list.get(5).getAssists() + 1);
                             }
 
                             // update home player 5's steals
                             else if (stat_index == 8) {
-                                player_list.get(5).setSteals(player_list.get(5).getSteals() + 1);
+                                away_player_list.get(5).setSteals(away_player_list.get(5).getSteals() + 1);
                             }
 
                             // update home player 5's blocks
                             else if (stat_index == 9) {
-                                player_list.get(5).setBlocks(player_list.get(5).getBlocks() + 1);
+                                away_player_list.get(5).setBlocks(away_player_list.get(5).getBlocks() + 1);
                             }
                             // update home player 5's fouls
                             else if (stat_index == 10) {
-                                player_list.get(5).setFouls(player_list.get(5).getFouls() + 1);
+                                away_player_list.get(5).setFouls(away_player_list.get(5).getFouls() + 1);
                             }
 
                             // update home player 5's turnovers
                             else if (stat_index == 11) {
-                                player_list.get(5).setTurnovers(player_list.get(5).getTurnovers() + 1);
+                                away_player_list.get(5).setTurnovers(away_player_list.get(5).getTurnovers() + 1);
                             }
 
                             break;
@@ -1023,13 +1123,13 @@ public class MainActivity extends AppCompatActivity {
                                 int pts = Integer.parseInt(temp);
                                 int new_pts = pts + 2;
                                 player6pts.setText("" + new_pts);
-                                home_score += 2;
+                                away_score += 2;
 
                                 // update game score
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(6).setFg_made(player_list.get(6).getFg_made() + 1);
-                                player_list.get(6).setPoints(player_list.get(6).getPoints() + 2);
+                                away_player_list.get(6).setFg_made(away_player_list.get(6).getFg_made() + 1);
+                                away_player_list.get(6).setPoints(away_player_list.get(6).getPoints() + 2);
 
                             }
 
@@ -1041,11 +1141,12 @@ public class MainActivity extends AppCompatActivity {
                                 player6pts.setText("" + new_pts);
 
                                 // update game score
-                                home_score += 3;
+                                away_score += 3;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(6).setThree_made(player_list.get(6).getThree_made() + 1);
-                                player_list.get(6).setPoints(player_list.get(6).getPoints() + 3);
+                                away_player_list.get(6).setFg_made(away_player_list.get(6).getFg_made() + 1);
+                                away_player_list.get(6).setThree_made(away_player_list.get(6).getThree_made() + 1);
+                                away_player_list.get(6).setPoints(away_player_list.get(6).getPoints() + 3);
                             }
 
                             // update home player 6's ft made and points
@@ -1056,26 +1157,27 @@ public class MainActivity extends AppCompatActivity {
                                 player6pts.setText("" + new_pts);
 
                                 // update game score
-                                home_score += 1;
+                                away_score += 1;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(6).setFt_made(player_list.get(6).getFt_made() + 1);
-                                player_list.get(6).setPoints(player_list.get(6).getPoints() + 1);
+                                away_player_list.get(6).setFt_made(away_player_list.get(6).getFt_made() + 1);
+                                away_player_list.get(6).setPoints(away_player_list.get(6).getPoints() + 1);
                             }
 
                             // update home player 6's fg misses
                             else if(stat_index == 3) {
-                                player_list.get(6).setFg_miss(player_list.get(6).getFg_miss() + 1);
+                                away_player_list.get(6).setFg_miss(away_player_list.get(6).getFg_miss() + 1);
                             }
 
                             // update home player 6's three point misses
                             else if (stat_index == 4) {
-                                player_list.get(6).setThree_miss(player_list.get(6).getThree_miss() + 1);
+                                away_player_list.get(6).setFg_miss(away_player_list.get(6).getFg_miss() + 1);
+                                away_player_list.get(6).setThree_miss(away_player_list.get(6).getThree_miss() + 1);
                             }
 
                             // update home player 6's missed fts
                             else if (stat_index == 5) {
-                                player_list.get(6).setFt_miss(player_list.get(6).getFt_miss() + 1);
+                                away_player_list.get(6).setFt_miss(away_player_list.get(6).getFt_miss() + 1);
                             }
 
                             // update home player 6's rebounds
@@ -1085,7 +1187,7 @@ public class MainActivity extends AppCompatActivity {
                                 int new_reb = reb + 1;
                                 player6reb.setText("" + new_reb);
 
-                                player_list.get(6).setRebounds(player_list.get(6).getRebounds() + 1);
+                                away_player_list.get(6).setRebounds(away_player_list.get(6).getRebounds() + 1);
                             }
 
                             // update home player 6's assists
@@ -1095,26 +1197,26 @@ public class MainActivity extends AppCompatActivity {
                                 int new_ast = ast + 1;
                                 player6ast.setText("" + new_ast);
 
-                                player_list.get(6).setAssists(player_list.get(6).getAssists() + 1);
+                                away_player_list.get(6).setAssists(away_player_list.get(6).getAssists() + 1);
                             }
 
                             // update home player 6's steals
                             else if (stat_index == 8) {
-                                player_list.get(6).setSteals(player_list.get(6).getSteals() + 1);
+                                away_player_list.get(6).setSteals(away_player_list.get(6).getSteals() + 1);
                             }
 
                             // update home player 6's blocks
                             else if (stat_index == 9) {
-                                player_list.get(6).setBlocks(player_list.get(6).getBlocks() + 1);
+                                away_player_list.get(6).setBlocks(away_player_list.get(6).getBlocks() + 1);
                             }
                             // update home player 6's fouls
                             else if (stat_index == 10) {
-                                player_list.get(6).setFouls(player_list.get(6).getFouls() + 1);
+                                away_player_list.get(6).setFouls(away_player_list.get(6).getFouls() + 1);
                             }
 
                             // update home player 6's turnovers
                             else if (stat_index == 11) {
-                                player_list.get(6).setTurnovers(player_list.get(6).getTurnovers() + 1);
+                                away_player_list.get(6).setTurnovers(away_player_list.get(6).getTurnovers() + 1);
                             }
 
                             break;
@@ -1128,13 +1230,13 @@ public class MainActivity extends AppCompatActivity {
                                 int pts = Integer.parseInt(temp);
                                 int new_pts = pts + 2;
                                 player7pts.setText("" + new_pts);
-                                home_score += 2;
+                                away_score += 2;
 
                                 // update game score
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(7).setFg_made(player_list.get(7).getFg_made() + 1);
-                                player_list.get(7).setPoints(player_list.get(7).getPoints() + 2);
+                                away_player_list.get(7).setFg_made(away_player_list.get(7).getFg_made() + 1);
+                                away_player_list.get(7).setPoints(away_player_list.get(7).getPoints() + 2);
 
                             }
 
@@ -1146,11 +1248,12 @@ public class MainActivity extends AppCompatActivity {
                                 player7pts.setText("" + new_pts);
 
                                 // update game score
-                                home_score += 3;
+                                away_score += 3;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(7).setThree_made(player_list.get(7).getThree_made() + 1);
-                                player_list.get(7).setPoints(player_list.get(7).getPoints() + 3);
+                                away_player_list.get(7).setFg_made(away_player_list.get(7).getFg_made() + 1);
+                                away_player_list.get(7).setThree_made(away_player_list.get(7).getThree_made() + 1);
+                                away_player_list.get(7).setPoints(away_player_list.get(7).getPoints() + 3);
                             }
 
                             // update home player 7's ft made and points
@@ -1161,26 +1264,27 @@ public class MainActivity extends AppCompatActivity {
                                 player7pts.setText("" + new_pts);
 
                                 // update game score
-                                home_score += 1;
+                                away_score += 1;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(7).setFt_made(player_list.get(7).getFt_made() + 1);
-                                player_list.get(7).setPoints(player_list.get(7).getPoints() + 1);
+                                away_player_list.get(7).setFt_made(away_player_list.get(7).getFt_made() + 1);
+                                away_player_list.get(7).setPoints(away_player_list.get(7).getPoints() + 1);
                             }
 
                             // update home player 7's fg misses
                             else if(stat_index == 3) {
-                                player_list.get(7).setFg_miss(player_list.get(7).getFg_miss() + 1);
+                                away_player_list.get(7).setFg_miss(away_player_list.get(7).getFg_miss() + 1);
                             }
 
                             // update home player 7's three point misses
                             else if (stat_index == 4) {
-                                player_list.get(7).setThree_miss(player_list.get(7).getThree_miss() + 1);
+                                away_player_list.get(7).setThree_miss(away_player_list.get(7).getThree_miss() + 1);
+                                away_player_list.get(7).setFg_miss(away_player_list.get(7).getFg_miss() + 1);
                             }
 
                             // update home player 7's missed fts
                             else if (stat_index == 5) {
-                                player_list.get(7).setFt_miss(player_list.get(7).getFt_miss() + 1);
+                                away_player_list.get(7).setFt_miss(away_player_list.get(7).getFt_miss() + 1);
                             }
 
                             // update home player 7's rebounds
@@ -1190,7 +1294,7 @@ public class MainActivity extends AppCompatActivity {
                                 int new_reb = reb + 1;
                                 player7reb.setText("" + new_reb);
 
-                                player_list.get(7).setRebounds(player_list.get(7).getRebounds() + 1);
+                                away_player_list.get(7).setRebounds(away_player_list.get(7).getRebounds() + 1);
                             }
 
                             // update home player 7's assists
@@ -1200,26 +1304,26 @@ public class MainActivity extends AppCompatActivity {
                                 int new_ast = ast + 1;
                                 player7ast.setText("" + new_ast);
 
-                                player_list.get(7).setAssists(player_list.get(7).getAssists() + 1);
+                                away_player_list.get(7).setAssists(away_player_list.get(7).getAssists() + 1);
                             }
 
                             // update home player 7's steals
                             else if (stat_index == 8) {
-                                player_list.get(7).setSteals(player_list.get(7).getSteals() + 1);
+                                away_player_list.get(7).setSteals(away_player_list.get(7).getSteals() + 1);
                             }
 
                             // update home player 7's blocks
                             else if (stat_index == 9) {
-                                player_list.get(7).setBlocks(player_list.get(7).getBlocks() + 1);
+                                away_player_list.get(7).setBlocks(away_player_list.get(7).getBlocks() + 1);
                             }
                             // update home player 7's fouls
                             else if (stat_index == 10) {
-                                player_list.get(7).setFouls(player_list.get(7).getFouls() + 1);
+                                away_player_list.get(7).setFouls(away_player_list.get(7).getFouls() + 1);
                             }
 
                             // update home player 7's turnovers
                             else if (stat_index == 11) {
-                                player_list.get(7).setTurnovers(player_list.get(7).getTurnovers() + 1);
+                                away_player_list.get(7).setTurnovers(away_player_list.get(7).getTurnovers() + 1);
                             }
 
                             break;
@@ -1233,13 +1337,13 @@ public class MainActivity extends AppCompatActivity {
                                 int pts = Integer.parseInt(temp);
                                 int new_pts = pts + 2;
                                 player8pts.setText("" + new_pts);
-                                home_score += 2;
+                                away_score += 2;
 
                                 // update game score
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(8).setFg_made(player_list.get(8).getFg_made() + 1);
-                                player_list.get(8).setPoints(player_list.get(8).getPoints() + 2);
+                                away_player_list.get(8).setFg_made(away_player_list.get(8).getFg_made() + 1);
+                                away_player_list.get(8).setPoints(away_player_list.get(8).getPoints() + 2);
 
                             }
 
@@ -1251,11 +1355,12 @@ public class MainActivity extends AppCompatActivity {
                                 player8pts.setText("" + new_pts);
 
                                 // update game score
-                                home_score += 3;
+                                away_score += 3;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(8).setThree_made(player_list.get(8).getThree_made() + 1);
-                                player_list.get(8).setPoints(player_list.get(8).getPoints() + 3);
+                                away_player_list.get(8).setThree_made(away_player_list.get(8).getThree_made() + 1);
+                                away_player_list.get(8).setPoints(away_player_list.get(8).getPoints() + 3);
+                                away_player_list.get(8).setFg_made(away_player_list.get(8).getFg_made() + 1);
                             }
 
                             // update home player 8's ft made and points
@@ -1266,26 +1371,27 @@ public class MainActivity extends AppCompatActivity {
                                 player8pts.setText("" + new_pts);
 
                                 // update game score
-                                home_score += 1;
+                                away_score += 1;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(8).setFt_made(player_list.get(8).getFt_made() + 1);
-                                player_list.get(8).setPoints(player_list.get(8).getPoints() + 1);
+                                away_player_list.get(8).setFt_made(away_player_list.get(8).getFt_made() + 1);
+                                away_player_list.get(8).setPoints(away_player_list.get(8).getPoints() + 1);
                             }
 
                             // update home player 8's fg misses
                             else if(stat_index == 3) {
-                                player_list.get(8).setFg_miss(player_list.get(8).getFg_miss() + 1);
+                                away_player_list.get(8).setFg_miss(away_player_list.get(8).getFg_miss() + 1);
                             }
 
                             // update home player 8's three point misses
                             else if (stat_index == 4) {
-                                player_list.get(8).setThree_miss(player_list.get(8).getThree_miss() + 1);
+                                away_player_list.get(8).setFg_miss(away_player_list.get(8).getFg_miss() + 1);
+                                away_player_list.get(8).setThree_miss(away_player_list.get(8).getThree_miss() + 1);
                             }
 
                             // update home player 8's missed fts
                             else if (stat_index == 5) {
-                                player_list.get(8).setFt_miss(player_list.get(8).getFt_miss() + 1);
+                                away_player_list.get(8).setFt_miss(away_player_list.get(8).getFt_miss() + 1);
                             }
 
                             // update home player 8's rebounds
@@ -1295,7 +1401,7 @@ public class MainActivity extends AppCompatActivity {
                                 int new_reb = reb + 1;
                                 player8reb.setText("" + new_reb);
 
-                                player_list.get(8).setRebounds(player_list.get(8).getRebounds() + 1);
+                                away_player_list.get(8).setRebounds(away_player_list.get(8).getRebounds() + 1);
                             }
 
                             // update home player 8's assists
@@ -1305,26 +1411,26 @@ public class MainActivity extends AppCompatActivity {
                                 int new_ast = ast + 1;
                                 player8ast.setText("" + new_ast);
 
-                                player_list.get(8).setAssists(player_list.get(8).getAssists() + 1);
+                                away_player_list.get(8).setAssists(away_player_list.get(8).getAssists() + 1);
                             }
 
                             // update home player 8's steals
                             else if (stat_index == 8) {
-                                player_list.get(8).setSteals(player_list.get(8).getSteals() + 1);
+                                away_player_list.get(8).setSteals(away_player_list.get(8).getSteals() + 1);
                             }
 
                             // update home player 8's blocks
                             else if (stat_index == 9) {
-                                player_list.get(8).setBlocks(player_list.get(8).getBlocks() + 1);
+                                away_player_list.get(8).setBlocks(away_player_list.get(8).getBlocks() + 1);
                             }
                             // update home player 8's fouls
                             else if (stat_index == 10) {
-                                player_list.get(8).setFouls(player_list.get(8).getFouls() + 1);
+                                away_player_list.get(8).setFouls(away_player_list.get(8).getFouls() + 1);
                             }
 
                             // update home player 8's turnovers
                             else if (stat_index == 11) {
-                                player_list.get(8).setTurnovers(player_list.get(8).getTurnovers() + 1);
+                                away_player_list.get(8).setTurnovers(away_player_list.get(8).getTurnovers() + 1);
                             }
 
                             break;
@@ -1339,13 +1445,13 @@ public class MainActivity extends AppCompatActivity {
                                 int pts = Integer.parseInt(temp);
                                 int new_pts = pts + 2;
                                 player9pts.setText("" + new_pts);
-                                home_score += 2;
+                                away_score += 2;
 
                                 // update game score
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(9).setFg_made(player_list.get(9).getFg_made() + 1);
-                                player_list.get(9).setPoints(player_list.get(9).getPoints() + 2);
+                                away_player_list.get(9).setFg_made(away_player_list.get(9).getFg_made() + 1);
+                                away_player_list.get(9).setPoints(away_player_list.get(9).getPoints() + 2);
 
                             }
 
@@ -1357,11 +1463,12 @@ public class MainActivity extends AppCompatActivity {
                                 player9pts.setText("" + new_pts);
 
                                 // update game score
-                                home_score += 3;
+                                away_score += 3;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(9).setThree_made(player_list.get(9).getThree_made() + 1);
-                                player_list.get(9).setPoints(player_list.get(9).getPoints() + 3);
+                                away_player_list.get(9).setThree_made(away_player_list.get(9).getThree_made() + 1);
+                                away_player_list.get(9).setPoints(away_player_list.get(9).getPoints() + 3);
+                                away_player_list.get(9).setFg_made(away_player_list.get(9).getFg_made() + 1);
                             }
 
                             // update home player 9's ft made and points
@@ -1372,26 +1479,27 @@ public class MainActivity extends AppCompatActivity {
                                 player9pts.setText("" + new_pts);
 
                                 // update game score
-                                home_score += 1;
+                                away_score += 1;
                                 score.setText("" + home_score + " - " + away_score);
 
-                                player_list.get(9).setFt_made(player_list.get(9).getFt_made() + 1);
-                                player_list.get(9).setPoints(player_list.get(9).getPoints() + 1);
+                                away_player_list.get(9).setFt_made(away_player_list.get(9).getFt_made() + 1);
+                                away_player_list.get(9).setPoints(away_player_list.get(9).getPoints() + 1);
                             }
 
                             // update home player 9's fg misses
                             else if(stat_index == 3) {
-                                player_list.get(9).setFg_miss(player_list.get(9).getFg_miss() + 1);
+                                away_player_list.get(9).setFg_miss(away_player_list.get(9).getFg_miss() + 1);
                             }
 
                             // update home player 9's three point misses
                             else if (stat_index == 4) {
-                                player_list.get(9).setThree_miss(player_list.get(9).getThree_miss() + 1);
+                                away_player_list.get(9).setFg_miss(away_player_list.get(9).getFg_miss() + 1);
+                                away_player_list.get(9).setThree_miss(away_player_list.get(9).getThree_miss() + 1);
                             }
 
                             // update home player 9's missed fts
                             else if (stat_index == 5) {
-                                player_list.get(9).setFt_miss(player_list.get(9).getFt_miss() + 1);
+                                away_player_list.get(9).setFt_miss(away_player_list.get(9).getFt_miss() + 1);
                             }
 
                             // update home player 9's rebounds
@@ -1401,7 +1509,7 @@ public class MainActivity extends AppCompatActivity {
                                 int new_reb = reb + 1;
                                 player9reb.setText("" + new_reb);
 
-                                player_list.get(9).setRebounds(player_list.get(9).getRebounds() + 1);
+                                away_player_list.get(9).setRebounds(away_player_list.get(9).getRebounds() + 1);
 
                             }
 
@@ -1412,26 +1520,26 @@ public class MainActivity extends AppCompatActivity {
                                 int new_ast = ast + 1;
                                 player9ast.setText("" + new_ast);
 
-                                player_list.get(9).setAssists(player_list.get(9).getAssists() + 1);
+                                away_player_list.get(9).setAssists(away_player_list.get(9).getAssists() + 1);
                             }
 
                             // update home player 9's steals
                             else if (stat_index == 8) {
-                                player_list.get(9).setSteals(player_list.get(9).getSteals() + 1);
+                                away_player_list.get(9).setSteals(away_player_list.get(9).getSteals() + 1);
                             }
 
                             // update home player 9's blocks
                             else if (stat_index == 9) {
-                                player_list.get(9).setBlocks(player_list.get(9).getBlocks() + 1);
+                                away_player_list.get(9).setBlocks(away_player_list.get(9).getBlocks() + 1);
                             }
                             // update home player 9's fouls
                             else if (stat_index == 10) {
-                                player_list.get(9).setFouls(player_list.get(9).getFouls() + 1);
+                                away_player_list.get(9).setFouls(away_player_list.get(9).getFouls() + 1);
                             }
 
                             // update home player 9's turnovers
                             else if (stat_index == 11) {
-                                player_list.get(9).setTurnovers(player_list.get(9).getTurnovers() + 1);
+                                away_player_list.get(9).setTurnovers(away_player_list.get(9).getTurnovers() + 1);
                             }
 
                             break;
@@ -1470,4 +1578,21 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    public ArrayList<Player> getHome_player_list() {
+        return home_player_list;
+    }
+
+    public ArrayList<Player> getAway_player_list() {
+        return away_player_list;
+    }
+    public void setHomePlayer_list(ArrayList<Player> p) {
+        home_player_list = p;
+    }
+
+    public void setAwayPlayer_list(ArrayList<Player> p) {
+        away_player_list = p;
+    }
+
 }
