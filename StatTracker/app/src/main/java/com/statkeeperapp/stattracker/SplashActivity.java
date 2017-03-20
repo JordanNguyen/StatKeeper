@@ -20,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
         final Animation zoom_out = AnimationUtils.loadAnimation(this, R.anim.zoom_out);
         logo.setAnimation(fade_in);
         logo.setAnimation(zoom_out);
-        final int secondsDelayed = 7;
+        final int secondsDelayed = 1;
         final int waitForAnimation = 1;
         logo.startAnimation(fade_in);
         new Handler().postDelayed(new Runnable() {
@@ -30,7 +30,7 @@ public class SplashActivity extends AppCompatActivity {
 
                     @Override
                     public void run() {
-                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                        startActivity(new Intent(SplashActivity.this, StartActivity.class));
                         finish();
                     }
                 }, waitForAnimation * 220);
