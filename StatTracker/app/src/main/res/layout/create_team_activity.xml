@@ -58,7 +58,7 @@
             android:imeOptions="actionDone" />
 
         <LinearLayout
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="40dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -93,36 +93,76 @@
             android:orientation="horizontal"
             android:layout_gravity="center_horizontal">
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+            <TextView
                 android:id="@+id/undo_button"
-                android:text="Undo"/>
+                android:layout_width="130dp"
+                android:layout_height="45dp"
+                android:gravity="center"
+                android:text="Undo"
+                android:textSize="18sp"
+                android:padding="12dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/sub_cancel_button"
+                />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+            <TextView
+                android:layout_marginLeft="10dp"
                 android:id="@+id/add_button"
-                android:text="Add Player" />
+                android:layout_width="130dp"
+                android:layout_height="45dp"
+                android:gravity="center"
+                android:text="Add Player"
+                android:textSize="18sp"
+                android:padding="12dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_make_button"
+                />
 
 
         </LinearLayout>
 
-        <Button
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/save_button"
-            android:layout_marginTop="150dp"
-            android:text="Save Team"/>
+            android:layout_marginTop="80dp"
+            android:layout_gravity="bottom">
+
+            <TextView
+                android:layout_marginTop="170dp"
+                android:layout_marginLeft="5dp"
+                android:id="@+id/cancel_button"
+                android:layout_width="130dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:text="Cancel"
+                android:textSize="18sp"
+                android:padding="12dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/sub_cancel_button"
+                android:layout_alignParentLeft="true"
+                />
+
+            <TextView
+                android:layout_marginTop="170dp"
+                android:id="@+id/save_button"
+                android:layout_width="130dp"
+                android:layout_height="45dp"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:text="Save"
+                android:textSize="18sp"
+                android:padding="12dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rounded_make_button"
+                android:layout_alignParentRight="true"
+                />
+
+
+        </RelativeLayout>
+
 
     </LinearLayout>
-
-
-
-
 
 
 </LinearLayout>

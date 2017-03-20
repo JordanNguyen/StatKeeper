@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -29,7 +30,7 @@ public class StartActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter);
 
-        Button start = (Button) findViewById(R.id.start_button);
+        TextView start = (TextView) findViewById(R.id.start_button);
         start.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v)
             {
@@ -38,7 +39,7 @@ public class StartActivity extends AppCompatActivity {
             }
         });
 
-        Button new_team = (Button) findViewById(R.id.new_team);
+        TextView new_team = (TextView) findViewById(R.id.new_team);
         new_team.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v)
             {

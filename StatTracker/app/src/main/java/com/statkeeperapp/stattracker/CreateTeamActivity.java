@@ -39,9 +39,11 @@ public class CreateTeamActivity  extends AppCompatActivity {
 
         final TextView roster = (TextView) findViewById(R.id.roster);
         final EditText player = (EditText) findViewById(R.id.player_name);
-        final Button addPlayer = (Button) findViewById(R.id.add_button);
-        final Button undo = (Button) findViewById(R.id.undo_button);
-        final Button save = (Button) findViewById(R.id.save_button);
+        final TextView addPlayer = (TextView) findViewById(R.id.add_button);
+        final TextView undo = (TextView) findViewById(R.id.undo_button);
+        final TextView save = (TextView) findViewById(R.id.save_button);
+        final TextView cancel = (TextView) findViewById(R.id.cancel_button);
+
 
 
         player.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -120,6 +122,14 @@ public class CreateTeamActivity  extends AppCompatActivity {
         });
 
         save.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v)
+            {
+                Intent intent = new Intent(getApplicationContext(), StartActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        cancel.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v)
             {
                 Intent intent = new Intent(getApplicationContext(), StartActivity.class);
