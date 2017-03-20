@@ -3,6 +3,7 @@ package com.statkeeperapp.stattracker;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
@@ -354,6 +356,38 @@ public class MainActivity extends AppCompatActivity implements SubDialog.onAccep
         right_player_plus_green3 = (ImageView) findViewById(R.id.plus_one_green8);
         right_player_plus_green4 = (ImageView) findViewById(R.id.plus_one_green9);
         right_player_plus_green5 = (ImageView) findViewById(R.id.plus_one_green10);
+
+        TextView button_endgame = (TextView) findViewById(R.id.button_quit_game);
+        button_endgame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                alertDialog.setTitle("End Game");
+                alertDialog.setMessage("Are you sure you want to end the game?");
+                alertDialog.setIcon(R.mipmap.ic_warning_black_24dp);
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        alertDialog.dismiss();
+                    }
+                });
+                alertDialog.show();
+            }
+        });
+
+        TextView button_undo = (TextView) findViewById(R.id.button_undo);
+        button_undo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // do undo stuff here
+            }
+        });
 
     }
 

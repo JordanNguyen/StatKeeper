@@ -18,14 +18,14 @@
         android:layout_gravity="center"
         android:src="@drawable/logo"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:layout_width="400dp"
+        android:layout_height="100dp"
         android:id="@+id/title"
-        android:text="StatKeeper"
-        android:textSize="48dp"
-        android:gravity="center_horizontal">
-    </TextView>
+        android:src="@drawable/statkeeper"
+        android:layout_gravity="center_horizontal"
+        >
+    </ImageView>
 
 
     <LinearLayout
